@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_receipt_app/src/page/pages.dart';
+import 'package:flutter_receipt_app/src/routers.dart';
 import 'package:flutter_receipt_app/src/theme/app_theme.dart';
 
 class App extends StatelessWidget {
@@ -11,7 +11,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Casheet App',
       theme: AppTheme().data,
-      home: const HomePage(),
+      onGenerateRoute: Routers.generateRoute,
+      initialRoute: '/',
     );
   }
 }
