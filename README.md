@@ -1,6 +1,6 @@
 # flutter_receipt_app
 
-A new Flutter project.
+A Flutter project for receipt app.
 
 ## Getting Started
 
