@@ -29,6 +29,8 @@ class _AuthState extends State<Auth> {
   }
 
   void _navToHome() {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+
     Navigator.of(context).pushNamed(Home.routeName);
   }
 }

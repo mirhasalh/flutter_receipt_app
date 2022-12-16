@@ -1,0 +1,6 @@
+{
+    "addItem": "Add item",
+    "@addItem": {
+      "description": "A text for add item button"
+    }
+}
