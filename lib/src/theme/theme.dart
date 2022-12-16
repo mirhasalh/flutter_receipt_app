@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_receipt_app/src/assets/fonts.dart';
 
 ThemeData kTheme = ThemeData(
   // This is the theme of your application.
@@ -11,4 +12,5 @@ ThemeData kTheme = ThemeData(
   // Notice that the counter didn't reset back to zero; the application
   // is not restarted.
   primarySwatch: Colors.teal,
+  fontFamily: Fonts.inter,
 );

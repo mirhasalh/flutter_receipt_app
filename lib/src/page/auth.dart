@@ -14,9 +14,7 @@ class _AuthState extends State<Auth> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      _navToHome();
-    });
+    Future.delayed(const Duration(seconds: 2), () => _navToHome());
   }
 
   @override
