@@ -15,6 +15,6 @@ ThemeData kTheme = ThemeData(
   fontFamily: Fonts.inter,
   pageTransitionsTheme: const PageTransitionsTheme(builders: {
     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-    TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+    TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
   }),
 );
