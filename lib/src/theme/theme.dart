@@ -13,4 +13,8 @@ ThemeData kTheme = ThemeData(
   // is not restarted.
   primarySwatch: Colors.teal,
   fontFamily: Fonts.inter,
+  pageTransitionsTheme: const PageTransitionsTheme(builders: {
+    TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+    TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+  }),
 );

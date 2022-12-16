@@ -96,7 +96,7 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
 
-  fonst:
+  fonts:
     - family: Inter
       fonts:
         - asset: fonts/Inter-Regular.ttf

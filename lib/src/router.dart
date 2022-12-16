@@ -8,6 +8,13 @@ Route<dynamic> router(RouteSettings settings) {
       return TimedPageRoute(builder: (_) => const Auth());
     case '/home':
       return TimedPageRoute(builder: (_) => const Home());
+    case '/settings':
+      return TimedPageRoute(builder: (_) => const Settings());
+    case '/language-settings':
+      final args = settings.arguments as LanguageSettingsArgs;
+      return TimedPageRoute(
+        builder: (_) => LanguageSettings(locale: args.locale),
+      );
     default:
       return TimedPageRoute(builder: (_) => const Auth());
   }

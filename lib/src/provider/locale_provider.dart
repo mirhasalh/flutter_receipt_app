@@ -8,13 +8,13 @@ class LocaleProvider extends ChangeNotifier {
 
   Locale? get locale => _locale;
 
-  void setLocaleToId() {
+  void setToId() {
     _locale = const Locale('id', 'ID');
 
     notifyListeners();
   }
 
-  void resetLocale() {
+  void reset() {
     _locale = const Locale('en', 'US');
 
     notifyListeners();

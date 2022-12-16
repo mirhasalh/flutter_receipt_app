@@ -2,5 +2,9 @@
     "addItem": "Add item",
     "@addItem": {
       "description": "A text for add item button"
+    },
+    "languageSettings": "Language settings",
+    "@languageSettings": {
+      "description": "Language settings app bar title"
     }
 }
