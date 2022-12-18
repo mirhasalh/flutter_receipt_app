@@ -1,29 +1,17 @@
-enum ItemType { goods, services, none }
+import 'package:isar/isar.dart';
 
-class WholesalePrice {
-  WholesalePrice(this.max, this.min, this.price);
+part 'item.g.dart';
 
-  int min;
-  int max;
-  double price;
-}
-
+@collection
 class Item {
-  Item(
-    this.type,
-    this.name,
-    this.sellingPrice,
-    this.stock,
-    this.wholesalePrice,
-    this.supplierName,
-    this.initialPrice,
-  );
-
-  ItemType type;
-  String name;
-  double sellingPrice;
-  int stock;
-  WholesalePrice wholesalePrice;
-  String supplierName;
-  double initialPrice;
+  Id id = Isar.autoIncrement;
+  int? type;
+  String? name;
+  double? sellingPrice;
+  int? stock;
+  double? wholesalePrice;
+  int? max;
+  int? min;
+  String? supplierName;
+  double? initialPrice;
 }
