@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
         children: [
           SpeedDialChild(
             onTap: () {},
-            label: AppLocalizations.of(context)!.addItem,
+            label: AppLocalizations.of(context)!.createNewDoc,
             child: const Icon(Icons.add),
           ),
           SpeedDialChild(

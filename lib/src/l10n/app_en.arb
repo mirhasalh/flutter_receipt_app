@@ -26,5 +26,9 @@
     "languageSubtitle": "Set to your preferred language",
     "@languageSubtitle": {
       "description": "Languages list tile subtitle"
+    },
+    "createNewDoc": "Create new document",
+    "@createNewDoc": {
+      "description": "A text for create new document button"
     }
 }
