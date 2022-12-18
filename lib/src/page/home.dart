@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Casheet App'),
+        title: Text(AppLocalizations.of(context)!.recentDocs),
       ),
       floatingActionButton: SpeedDial(
         tooltip: AppLocalizations.of(context)!.openMenu,

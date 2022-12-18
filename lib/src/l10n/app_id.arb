@@ -6,5 +6,6 @@
     "settings": "Pengaturan",
     "languages": "Bahasa",
     "languageSubtitle": "Setel ke bahasa pilihan Anda",
-    "createNewDoc": "Buat dokumen baru"
+    "createNewDoc": "Buat dokumen baru",
+    "recentDocs": "Dokumen terbaru"
 }
