@@ -15,6 +15,8 @@ Route<dynamic> router(RouteSettings settings) {
       return TimedPageRoute(
         builder: (_) => LanguageSettings(locale: args.locale),
       );
+    case '/item-list':
+      return TimedPageRoute(builder: (_) => const ItemList());
     default:
       return TimedPageRoute(builder: (_) => const Auth());
   }

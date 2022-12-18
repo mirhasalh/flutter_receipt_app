@@ -2,10 +2,11 @@
     "addItem":"Tambahkan item baru",
     "languageSettings": "Pengaturan bahasa",
     "openMenu": "Buka menu",
-    "allItems": "Lihat semua item",
+    "allItems": "Semua item",
     "settings": "Pengaturan",
     "languages": "Bahasa",
     "languageSubtitle": "Setel ke bahasa pilihan Anda",
     "createNewDoc": "Buat dokumen baru",
-    "recentDocs": "Dokumen terbaru"
+    "recentDocs": "Dokumen terbaru",
+    "seeAllItems": "Lihat semua item"
 }

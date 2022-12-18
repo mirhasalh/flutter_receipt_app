@@ -11,9 +11,9 @@
     "@openMenu": {
       "description": "Speed dial tooltip"
     },
-    "allItems": "See all items",
+    "allItems": "All items",
     "@allItems": {
-      "description": "A text for see all items button"
+      "description": "Item list page title"
     },
     "settings": "Settings",
     "@settings": {
@@ -34,5 +34,9 @@
     "recentDocs": "Recent documents",
     "@recentDocs": {
       "description": "Recent documents page title"
+    },
+    "seeAllItems": "See all items",
+    "@seeAllItems": {
+      "description": "A text for see all items button"
     }
 }

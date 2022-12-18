@@ -22,8 +22,10 @@ class Home extends StatelessWidget {
             child: const Icon(Icons.add),
           ),
           SpeedDialChild(
-            onTap: () {},
-            label: AppLocalizations.of(context)!.allItems,
+            onTap: () {
+              Navigator.of(context).pushNamed(ItemList.routeName);
+            },
+            label: AppLocalizations.of(context)!.seeAllItems,
             child: const Icon(Icons.all_inbox_outlined),
           ),
           SpeedDialChild(

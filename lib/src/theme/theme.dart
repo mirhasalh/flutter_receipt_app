@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_receipt_app/src/assets/fonts.dart';
+import 'package:flutter_receipt_app/src/palette.dart';
 
 ThemeData kTheme = ThemeData(
   // This is the theme of your application.
@@ -17,4 +18,13 @@ ThemeData kTheme = ThemeData(
     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
     TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
   }),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(color: Palette.slateGray),
+    titleTextStyle: TextStyle(
+      color: Palette.eerieBlack,
+      fontSize: 20.0,
+    ),
+    elevation: 0.0,
+  ),
 );
