@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -14,27 +14,28 @@ class Home extends StatelessWidget {
         title: const Text('Casheet App'),
       ),
       floatingActionButton: SpeedDial(
-        tooltip: 'Menu',
+        tooltip: AppLocalizations.of(context)!.openMenu,
         children: [
           SpeedDialChild(
             onTap: () {},
-            label: 'Add item',
+            label: AppLocalizations.of(context)!.addItem,
             child: const Icon(Icons.add),
           ),
           SpeedDialChild(
             onTap: () {},
-            label: 'Items',
-            child: const Icon(Icons.interests_outlined),
+            label: AppLocalizations.of(context)!.allItems,
+            child: const Icon(Icons.all_inbox_outlined),
           ),
           SpeedDialChild(
             onTap: () {
               Navigator.of(context).pushNamed(Settings.routeName);
             },
-            label: 'Settings',
+            label: AppLocalizations.of(context)!.settings,
             child: const Icon(Icons.settings_outlined),
           ),
         ],
-        animatedIcon: AnimatedIcons.menu_close,
+        icon: Icons.add,
+        activeIcon: Icons.close,
       ),
     );
   }

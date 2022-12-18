@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
 
 class Settings extends StatelessWidget {
@@ -10,7 +10,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settings),
       ),
       body: ListView(
         children: [
@@ -22,8 +22,8 @@ class Settings extends StatelessWidget {
             ),
             tileColor: Colors.white,
             leading: const Icon(Icons.language_outlined),
-            title: const Text('Languages'),
-            subtitle: const Text('Set to your preferred language'),
+            title: Text(AppLocalizations.of(context)!.languages),
+            subtitle: Text(AppLocalizations.of(context)!.languageSubtitle),
           ),
         ],
       ),

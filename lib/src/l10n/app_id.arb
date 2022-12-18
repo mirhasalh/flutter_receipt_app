@@ -1,4 +1,9 @@
 {
-    "addItem":"Tambahkan barang",
-    "languageSettings": "Pengaturan bahasa"
+    "addItem":"Tambahkan item baru",
+    "languageSettings": "Pengaturan bahasa",
+    "openMenu": "Buka menu",
+    "allItems": "Lihat semua item",
+    "settings": "Pengaturan",
+    "languages": "Bahasa",
+    "languageSubtitle": "Setel ke bahasa pilihan Anda"
 }

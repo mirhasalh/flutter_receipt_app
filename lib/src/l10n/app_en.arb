@@ -1,10 +1,30 @@
 {
-    "addItem": "Add item",
+    "addItem": "Add new item",
     "@addItem": {
-      "description": "A text for add item button"
+      "description": "A text for add new item button"
     },
     "languageSettings": "Language settings",
     "@languageSettings": {
       "description": "Language settings app bar title"
+    },
+    "openMenu": "Open menu",
+    "@openMenu": {
+      "description": "Speed dial tooltip"
+    },
+    "allItems": "See all items",
+    "@allItems": {
+      "description": "A text for see all items button"
+    },
+    "settings": "Settings",
+    "@settings": {
+      "description": "A text for settings button"
+    },
+    "languages": "Languages",
+    "@languages": {
+      "description": "Languages list tile title"
+    },
+    "languageSubtitle": "Set to your preferred language",
+    "@languageSubtitle": {
+      "description": "Languages list tile subtitle"
     }
 }
