@@ -15,7 +15,7 @@ class TxnDocument {
     this.changes,
   );
 
-  DateTime createdAt;
+  final DateTime createdAt;
   TxnType txnType;
   String to;
   bool paid;
