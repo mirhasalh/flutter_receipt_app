@@ -1,4 +1,5 @@
 import 'package:flutter_receipt_app/src/common.dart';
+import 'package:flutter_receipt_app/src/page/pages.dart';
 
 class ItemList extends StatelessWidget {
   static const routeName = '/item-list';
@@ -12,7 +13,9 @@ class ItemList extends StatelessWidget {
         title: Text(AppLocalizations.of(context)!.allItems),
         actions: [
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddItem.routeName);
+            },
             icon: const Icon(Icons.add),
             label: Text(AppLocalizations.of(context)!.addItem),
           ),
