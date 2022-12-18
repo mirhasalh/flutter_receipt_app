@@ -27,33 +27,28 @@ const TxnDocumentSchema = CollectionSchema(
       name: r'createdAt',
       type: IsarType.string,
     ),
-    r'idItems': PropertySchema(
-      id: 2,
-      name: r'idItems',
-      type: IsarType.stringList,
-    ),
     r'paid': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'paid',
       type: IsarType.bool,
     ),
     r'payment': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'payment',
       type: IsarType.double,
     ),
     r'to': PropertySchema(
-      id: 5,
+      id: 4,
       name: r'to',
       type: IsarType.string,
     ),
     r'total': PropertySchema(
-      id: 6,
+      id: 5,
       name: r'total',
       type: IsarType.double,
     ),
     r'txnType': PropertySchema(
-      id: 7,
+      id: 6,
       name: r'txnType',
       type: IsarType.long,
     )
@@ -64,7 +59,14 @@ const TxnDocumentSchema = CollectionSchema(
   deserializeProp: _txnDocumentDeserializeProp,
   idName: r'id',
   indexes: {},
-  links: {},
+  links: {
+    r'items': LinkSchema(
+      id: -4615576294828932056,
+      name: r'items',
+      target: r'Item',
+      single: false,
+    )
+  },
   embeddedSchemas: {},
   getId: _txnDocumentGetId,
   getLinks: _txnDocumentGetLinks,
@@ -85,18 +87,6 @@ int _txnDocumentEstimateSize(
     }
   }
   {
-    final list = object.idItems;
-    if (list != null) {
-      bytesCount += 3 + list.length * 3;
-      {
-        for (var i = 0; i < list.length; i++) {
-          final value = list[i];
-          bytesCount += value.length * 3;
-        }
-      }
-    }
-  }
-  {
     final value = object.to;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -113,12 +103,11 @@ void _txnDocumentSerialize(
 ) {
   writer.writeDouble(offsets[0], object.changes);
   writer.writeString(offsets[1], object.createdAt);
-  writer.writeStringList(offsets[2], object.idItems);
-  writer.writeBool(offsets[3], object.paid);
-  writer.writeDouble(offsets[4], object.payment);
-  writer.writeString(offsets[5], object.to);
-  writer.writeDouble(offsets[6], object.total);
-  writer.writeLong(offsets[7], object.txnType);
+  writer.writeBool(offsets[2], object.paid);
+  writer.writeDouble(offsets[3], object.payment);
+  writer.writeString(offsets[4], object.to);
+  writer.writeDouble(offsets[5], object.total);
+  writer.writeLong(offsets[6], object.txnType);
 }
 
 TxnDocument _txnDocumentDeserialize(
@@ -131,12 +120,11 @@ TxnDocument _txnDocumentDeserialize(
   object.changes = reader.readDoubleOrNull(offsets[0]);
   object.createdAt = reader.readStringOrNull(offsets[1]);
   object.id = id;
-  object.idItems = reader.readStringList(offsets[2]);
-  object.paid = reader.readBoolOrNull(offsets[3]);
-  object.payment = reader.readDoubleOrNull(offsets[4]);
-  object.to = reader.readStringOrNull(offsets[5]);
-  object.total = reader.readDoubleOrNull(offsets[6]);
-  object.txnType = reader.readLongOrNull(offsets[7]);
+  object.paid = reader.readBoolOrNull(offsets[2]);
+  object.payment = reader.readDoubleOrNull(offsets[3]);
+  object.to = reader.readStringOrNull(offsets[4]);
+  object.total = reader.readDoubleOrNull(offsets[5]);
+  object.txnType = reader.readLongOrNull(offsets[6]);
   return object;
 }
 
@@ -152,16 +140,14 @@ P _txnDocumentDeserializeProp<P>(
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readStringList(offset)) as P;
-    case 3:
       return (reader.readBoolOrNull(offset)) as P;
+    case 3:
+      return (reader.readDoubleOrNull(offset)) as P;
     case 4:
-      return (reader.readDoubleOrNull(offset)) as P;
-    case 5:
       return (reader.readStringOrNull(offset)) as P;
-    case 6:
+    case 5:
       return (reader.readDoubleOrNull(offset)) as P;
-    case 7:
+    case 6:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -173,12 +159,13 @@ Id _txnDocumentGetId(TxnDocument object) {
 }
 
 List<IsarLinkBase<dynamic>> _txnDocumentGetLinks(TxnDocument object) {
-  return [];
+  return [object.items];
 }
 
 void _txnDocumentAttach(
     IsarCollection<dynamic> col, Id id, TxnDocument object) {
   object.id = id;
+  object.items.attach(col, col.isar.collection<Item>(), r'items', id);
 }
 
 extension TxnDocumentQueryWhereSort
@@ -546,249 +533,6 @@ extension TxnDocumentQueryFilter
         upper: upper,
         includeUpper: includeUpper,
       ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idItems',
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idItems',
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idItems',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'idItems',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'idItems',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'idItems',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'idItems',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'idItems',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'idItems',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'idItems',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idItems',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'idItems',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'idItems',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'idItems',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'idItems',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'idItems',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'idItems',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
-      idItemsLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'idItems',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
     });
   }
 
@@ -1203,7 +947,67 @@ extension TxnDocumentQueryObject
     on QueryBuilder<TxnDocument, TxnDocument, QFilterCondition> {}
 
 extension TxnDocumentQueryLinks
-    on QueryBuilder<TxnDocument, TxnDocument, QFilterCondition> {}
+    on QueryBuilder<TxnDocument, TxnDocument, QFilterCondition> {
+  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition> items(
+      FilterQuery<Item> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'items');
+    });
+  }
+
+  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
+      itemsLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'items', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition> itemsIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'items', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
+      itemsIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'items', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
+      itemsLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'items', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
+      itemsLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'items', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<TxnDocument, TxnDocument, QAfterFilterCondition>
+      itemsLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(
+          r'items', lower, includeLower, upper, includeUpper);
+    });
+  }
+}
 
 extension TxnDocumentQuerySortBy
     on QueryBuilder<TxnDocument, TxnDocument, QSortBy> {
@@ -1406,12 +1210,6 @@ extension TxnDocumentQueryWhereDistinct
     });
   }
 
-  QueryBuilder<TxnDocument, TxnDocument, QDistinct> distinctByIdItems() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idItems');
-    });
-  }
-
   QueryBuilder<TxnDocument, TxnDocument, QDistinct> distinctByPaid() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'paid');
@@ -1461,12 +1259,6 @@ extension TxnDocumentQueryProperty
   QueryBuilder<TxnDocument, String?, QQueryOperations> createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'createdAt');
-    });
-  }
-
-  QueryBuilder<TxnDocument, List<String>?, QQueryOperations> idItemsProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idItems');
     });
   }
 
