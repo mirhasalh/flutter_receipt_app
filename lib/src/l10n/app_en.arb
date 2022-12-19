@@ -38,5 +38,17 @@
     "seeAllItems": "See all items",
     "@seeAllItems": {
       "description": "A text for see all items button"
+    },
+    "supplier": "Supplier",
+    "@supplier": {
+      "description": "A text for supplier button"
+    },
+    "addSupplier": "Add supplier",
+    "@addSupplier": {
+      "description": "A text for add supplier button"
+    },
+    "goodsOrServicesCaption": "A good is a tangible item that consumers desire or own. A service is not a tangible or physical entity but is still sought after by consumers",
+    "@goodsOrServicesCaption": {
+      "description": "A caption for goods or services check box"
     }
 }

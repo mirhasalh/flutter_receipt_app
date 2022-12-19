@@ -19,6 +19,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return TimedPageRoute(builder: (_) => const ItemList());
     case '/add-item':
       return TimedPageRoute(builder: (_) => const AddItem());
+    case '/supplier-list':
+      return TimedPageRoute(builder: (_) => const SupplierList());
     default:
       return TimedPageRoute(builder: (_) => const Auth());
   }
