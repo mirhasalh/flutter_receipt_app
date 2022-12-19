@@ -21,6 +21,12 @@ class DbUtils {
     isar.writeTxnSync<int>(() => isar.suppliers.putSync(supplier));
   }
 
+  Stream<List<Supplier>> listenSuppliers() async* {
+    final isar = await db;
+
+    yield* isar.suppliers.where().watch(fireImmediately: true);
+  }
+
   // Obtain isar db
   Future<Isar> openDB() async {
     if (Isar.instanceNames.isEmpty) {

@@ -1,4 +1,5 @@
 import 'package:flutter_receipt_app/src/common.dart';
+import 'package:flutter_receipt_app/src/db/dbs.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/shared/shared.dart';
 
@@ -27,6 +28,23 @@ class _SupplierListState extends State<SupplierList> {
             icon: const Icon(Icons.add),
           ),
         ],
+      ),
+      body: StreamBuilder<List<Supplier>>(
+        stream: DbUtils().listenSuppliers(),
+        builder: (context, snapshot) {
+          if (snapshot.data == null || snapshot.data!.isEmpty) {
+            return _buildEmptySupplier();
+          }
+
+          return ListView.separated(
+            itemBuilder: (context, index) => ListTile(
+              tileColor: Palette.powderBlue,
+              title: Text(snapshot.data![index].supplierName!),
+            ),
+            separatorBuilder: (context, index) => const Divider(height: 0.0),
+            itemCount: snapshot.data!.length,
+          );
+        },
       ),
     );
   }
@@ -77,10 +95,6 @@ class _SupplierListState extends State<SupplierList> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          supplierNameController.clear();
-                        });
-
                         Navigator.of(context).pop();
                       },
                       child: Text(AppLocalizations.of(context)!.cancel),
@@ -89,13 +103,7 @@ class _SupplierListState extends State<SupplierList> {
                     ElevatedButton(
                       onPressed: supplierNameController.text.isEmpty
                           ? null
-                          : () {
-                              setState(() {
-                                supplierNameController.clear();
-                              });
-
-                              Navigator.of(context).pop();
-                            },
+                          : () => _onAddSupplier(supplierNameController.text),
                       child: Text(AppLocalizations.of(context)!.addSupplier),
                     ),
                   ],
@@ -107,4 +115,19 @@ class _SupplierListState extends State<SupplierList> {
       ),
     );
   }
+
+  void _onAddSupplier(String name) {
+    var supplier = Supplier()..supplierName = name.trim();
+
+    DbUtils().addSupplier(supplier);
+
+    Navigator.of(context).pop();
+  }
+
+  Widget _buildEmptySupplier() => Center(
+        child: Text(
+          'No data',
+          style: Theme.of(context).textTheme.caption,
+        ),
+      );
 }
