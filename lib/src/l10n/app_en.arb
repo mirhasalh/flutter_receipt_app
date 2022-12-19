@@ -50,5 +50,17 @@
     "goodsOrServicesCaption": "A good is a tangible item that consumers desire or own. A service is not a tangible or physical entity but is still sought after by consumers",
     "@goodsOrServicesCaption": {
       "description": "A caption for goods or services check box"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+      "description": "A text for cancel button"
+    },
+    "name": "Name",
+    "@name": {
+      "description": "A text for name"
+    },
+    "typeSupplierName": "Type the name of the supplier",
+    "@typeSupplierName": {
+      "description": "A hint text for supplier name text field"
     }
 }

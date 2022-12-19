@@ -11,5 +11,8 @@
     "seeAllItems": "Lihat semua item",
     "supplier": "Pemasok",
     "addSupplier": "Tambahkan pemasok",
-    "goodsOrServicesCaption": "Barang adalah barang berwujud yang diinginkan atau dimiliki konsumen. Jasa bukanlah suatu entitas berwujud atau fisik tetapi tetap dicari oleh konsumen"
+    "goodsOrServicesCaption": "Barang adalah barang berwujud yang diinginkan atau dimiliki konsumen. Jasa bukanlah suatu entitas berwujud atau fisik tetapi tetap dicari oleh konsumen",
+    "cancel": "Batalkan",
+    "name": "Nama",
+    "typeSupplierName": "Ketik nama pemasok"
 }
