@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_receipt_app/src/localizations.dart';
 import 'package:flutter_receipt_app/src/provider/locale_provider.dart';
-import 'package:flutter_receipt_app/src/router.dart';
+import 'package:flutter_receipt_app/src/route.dart';
 import 'package:flutter_receipt_app/src/theme/theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,7 +19,7 @@ class App extends ConsumerWidget {
       locale: locale,
       localizationsDelegates: kLocalizationsDelegates,
       supportedLocales: kSupportedLocales,
-      onGenerateRoute: router,
+      onGenerateRoute: generateRoute,
       initialRoute: '/',
     );
   }
