@@ -12,12 +12,13 @@ class ItemList extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.allItems),
         actions: [
-          TextButton.icon(
+          IconButton(
             onPressed: () {
               Navigator.of(context).pushNamed(AddItem.routeName);
             },
+            tooltip: AppLocalizations.of(context)!.addItem,
+            color: Colors.teal,
             icon: const Icon(Icons.add),
-            label: Text(AppLocalizations.of(context)!.addItem),
           ),
         ],
       ),
