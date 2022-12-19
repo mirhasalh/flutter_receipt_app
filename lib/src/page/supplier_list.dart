@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/db/dbs.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
@@ -14,6 +15,7 @@ class SupplierList extends StatefulWidget {
 
 class _SupplierListState extends State<SupplierList> {
   final supplierNameController = TextEditingController();
+  Set<int> selectedIndex = {};
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +29,46 @@ class _SupplierListState extends State<SupplierList> {
             color: Colors.teal,
             icon: const Icon(Icons.add),
           ),
+          Visibility(
+            visible: selectedIndex.isEmpty,
+            replacement: IconButton(
+              onPressed: () => _onPressedDelete(),
+              icon: const Icon(Icons.delete, color: Colors.teal),
+            ),
+            child: const SizedBox.shrink(),
+          ),
         ],
       ),
       body: StreamBuilder<List<Supplier>>(
         stream: DbUtils().listenSuppliers(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
           if (snapshot.data == null || snapshot.data!.isEmpty) {
             return _buildEmptySupplier();
           }
 
           return ListView.separated(
             itemBuilder: (context, index) => ListTile(
-              tileColor: Palette.powderBlue,
+              onTap: () => _onTapSupplierList(snapshot.data![index].id),
+              onLongPress: () =>
+                  _onLongPressedSupplierList(snapshot.data![index].id),
+              tileColor: selectedIndex.contains(snapshot.data![index].id)
+                  ? Palette.powderBlue
+                  : Colors.white,
               title: Text(snapshot.data![index].supplierName!),
+              trailing: selectedIndex.contains(snapshot.data![index].id)
+                  ? const Icon(Icons.check_box, color: Colors.teal)
+                  : const SizedBox.shrink(),
             ),
             separatorBuilder: (context, index) => const Divider(height: 0.0),
             itemCount: snapshot.data!.length,
           );
         },
       ),
+      bottomSheet: Text('${selectedIndex.toList()}'),
     );
   }
 
@@ -127,7 +150,39 @@ class _SupplierListState extends State<SupplierList> {
   Widget _buildEmptySupplier() => Center(
         child: Text(
           'No data',
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context)
+              .textTheme
+              .subtitle2!
+              .copyWith(color: Colors.black54),
         ),
       );
+
+  void _onLongPressedSupplierList(int index) {
+    if (selectedIndex.any((i) => i == index)) {
+      return;
+    }
+
+    HapticFeedback.lightImpact();
+
+    setState(() {
+      selectedIndex.add(index);
+    });
+  }
+
+  void _onTapSupplierList(int index) {
+    if (selectedIndex.any((i) => i == index)) {
+      setState(() => selectedIndex.remove(index));
+      return;
+    }
+
+    if (selectedIndex.isNotEmpty) {
+      setState(() => selectedIndex.add(index));
+    }
+  }
+
+  void _onPressedDelete() {
+    DbUtils()
+        .deleteSuppliers(selectedIndex)
+        .then((_) => setState(() => selectedIndex.clear()));
+  }
 }

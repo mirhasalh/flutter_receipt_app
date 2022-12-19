@@ -27,6 +27,14 @@ class DbUtils {
     yield* isar.suppliers.where().watch(fireImmediately: true);
   }
 
+  Future<void> deleteSuppliers(Set<int> ids) async {
+    final isar = await db;
+
+    var list = ids.toList();
+
+    await isar.writeTxn(() async => await isar.suppliers.deleteAll(list));
+  }
+
   // Obtain isar db
   Future<Isar> openDB() async {
     if (Isar.instanceNames.isEmpty) {

@@ -14,7 +14,7 @@ class App extends ConsumerWidget {
     var locale = ref.watch(localeProvider).locale;
 
     return MaterialApp(
-      title: 'Casheet App',
+      title: 'Pepr App',
       theme: kTheme,
       locale: locale,
       localizationsDelegates: kLocalizationsDelegates,
