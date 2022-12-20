@@ -27,4 +27,8 @@ ThemeData kTheme = ThemeData(
     ),
     elevation: 0.0,
   ),
+  textTheme: const TextTheme(
+    bodyText1: TextStyle(color: Palette.eerieBlack),
+    bodyText2: TextStyle(color: Palette.eerieBlack),
+  ),
 );
