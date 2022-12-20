@@ -68,7 +68,6 @@ class _SupplierListState extends State<SupplierList> {
           );
         },
       ),
-      bottomSheet: Text('${selectedIndex.toList()}'),
     );
   }
 
