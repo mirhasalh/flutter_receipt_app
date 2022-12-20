@@ -1,7 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/duration.dart';
-import 'package:flutter_receipt_app/src/db/dbs.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/utils/add_item_utils.dart';
 
@@ -13,219 +12,177 @@ class AddItem extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final pageController = usePageController();
-    final textController = useTextEditingController();
+    final nameController = useTextEditingController();
+    final priceController = useTextEditingController();
+    final stockController = useTextEditingController();
+    final wholesalePriceController = useTextEditingController();
+    final maxController = useTextEditingController();
+    final minController = useTextEditingController();
+    final initialPriceController = useTextEditingController();
     final itemType = useState<ItemType>(ItemType.none);
-    final item = useState<Item>(Item());
+    final type = useState<int>(0);
+    final name = useState<String>('');
+    final sellingPrice = useState<double>(0);
+    final stock = useState<int>(0);
+    final wholesalePrice = useState<double>(0);
+    final max = useState<int>(0);
+    final min = useState<int>(0);
+    final supplierName = useState<String>('');
+    final initialPrice = useState<double>(0);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.addItem),
       ),
-      bottomSheet: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('${item.value.type}'),
-          Text('${item.value.name}'),
-          Text('${item.value.sellingPrice}'),
-          Text('${item.value.stock}'),
-          Text('${item.value.wholesalePrice}'),
-          Text('${item.value.wholesalePrice}'),
-          Text('${item.value.max}'),
-          Text('${item.value.min}'),
-          Text('${item.value.supplierName}'),
-          Text('${item.value.initialPrice}'),
-        ],
-      ),
       body: PageView(
         controller: pageController,
         scrollDirection: Axis.vertical,
         children: [
-          _buildSelectItemType(
-            context,
-            itemType.value,
-            item.value,
-            textController,
-            pageController,
-            (type) {
-              itemType.value = type!;
-              item.value.type = AddItemUtils().getType(type);
-            },
-            (type) {
-              itemType.value = type!;
-              item.value.type = AddItemUtils().getType(type);
-            },
+          _ContainerForColumn(
+            children: [
+              _buildTitle(context, '1/9 Select an item type'),
+              const SizedBox(height: 8.0),
+              RadioListTile<ItemType>(
+                value: ItemType.goods,
+                groupValue: itemType.value,
+                onChanged: (value) {
+                  itemType.value = value!;
+                  type.value = AddItemUtils().getType(value);
+                },
+                title: const Text('Goods'),
+              ),
+              RadioListTile<ItemType>(
+                value: ItemType.services,
+                groupValue: itemType.value,
+                onChanged: (value) {
+                  itemType.value = value!;
+                  type.value = AddItemUtils().getType(value);
+                },
+                title: const Text('Services'),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                AppLocalizations.of(context)!.goodsOrServicesCaption,
+                style: Theme.of(context).textTheme.caption,
+              ),
+              const SizedBox(height: 8.0),
+              _buildRowOfButton(
+                context,
+                false,
+                null,
+                itemType.value == ItemType.none
+                    ? null
+                    : () => _nextPage(pageController),
+              ),
+              const SizedBox(height: 8.0),
+            ],
           ),
-          _buildItemName(
-            context,
-            textController,
-            item.value,
-            pageController,
-            (text) {
-              item.value.name = text.trim();
-            },
+          _ContainerForColumn(
+            children: [
+              _buildTitle(context, '2/9 Type the name of the item'),
+              const SizedBox(height: 8.0),
+              TextFormField(
+                controller: nameController,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: Palette.eerieBlack),
+                decoration: const InputDecoration(
+                  hintText: 'Pen',
+                ),
+                keyboardType: TextInputType.name,
+                onChanged: (text) => name.value = text,
+              ),
+              const SizedBox(height: 8.0),
+              _buildRowOfButton(
+                context,
+                true,
+                () => _prevPage(pageController),
+                name.value == '' ? null : () => _nextPage(pageController),
+              ),
+              const SizedBox(height: 8.0),
+            ],
           ),
-          _buildSellingPrice(
-            context,
-            textController,
-            (text) => item.value.sellingPrice = double.parse(text),
+          _ContainerForColumn(
+            children: [
+              _buildTitle(context, '3/9 Enter a selling price per item'),
+              const SizedBox(height: 8.0),
+              TextFormField(
+                controller: priceController,
+                decoration: const InputDecoration(
+                  hintText: '0',
+                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: Palette.eerieBlack),
+                keyboardType: TextInputType.number,
+                onChanged: (text) => sellingPrice.value = double.parse(text),
+              ),
+              const SizedBox(height: 8.0),
+              _buildRowOfButton(
+                context,
+                true,
+                () => _prevPage(pageController),
+                sellingPrice.value <= 0
+                    ? null
+                    : () => _nextPage(pageController),
+              ),
+              const SizedBox(height: 8.0),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSelectItemType(
-    BuildContext context,
-    ItemType itemType,
-    Item item,
-    TextEditingController textController,
-    PageController pageController,
-    Function(ItemType?) onChanged1,
-    Function(ItemType?) onChanged2,
-  ) =>
-      _ContainerForColumn(
-        children: [
-          Text(
-            '1/n Select an item type',
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2!
-                .copyWith(color: Palette.slateGray),
-          ),
-          const SizedBox(height: 8.0),
-          RadioListTile<ItemType>(
-            value: ItemType.goods,
-            groupValue: itemType,
-            onChanged: (type1) => onChanged1(type1),
-            title: const Text('Goods'),
-          ),
-          RadioListTile<ItemType>(
-            value: ItemType.services,
-            groupValue: itemType,
-            onChanged: (type2) => onChanged2(type2),
-            title: const Text('Services'),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            AppLocalizations.of(context)!.goodsOrServicesCaption,
-            style: Theme.of(context).textTheme.caption,
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: itemType == ItemType.none
-                    ? null
-                    : () {
-                        _nextPage(pageController, textController);
-                      },
-                child: const Text('Next'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-        ],
-      );
-
-  Widget _buildItemName(
-    BuildContext context,
-    TextEditingController textController,
-    Item item,
-    PageController pageController,
-    Function(String) onChanged,
-  ) =>
-      _ContainerForColumn(
-        children: [
-          Text(
-            '2/n Type the name of the item',
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2!
-                .copyWith(color: Palette.slateGray),
-          ),
-          const SizedBox(height: 8.0),
-          TextFormField(
-            controller: textController,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Palette.eerieBlack),
-            decoration: const InputDecoration(
-              hintText: 'Hint text',
-            ),
-            onChanged: (text) => onChanged(text),
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: item.name == null || item.name!.isEmpty
-                    ? null
-                    : () {
-                        _nextPage(pageController, textController);
-                      },
-                child: const Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      );
-
-  Widget _buildSellingPrice(BuildContext context,
-          TextEditingController controller, Function(String) onChanged) =>
-      _ContainerForColumn(
-        children: [
-          Text(
-            'Enter a selling price per item',
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2!
-                .copyWith(color: Palette.slateGray),
-          ),
-          const SizedBox(height: 8.0),
-          TextFormField(
-            controller: controller,
-            decoration: const InputDecoration(
-              hintText: 'Hint text',
-            ),
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Palette.eerieBlack),
-            keyboardType: TextInputType.number,
-            onChanged: (text) => onChanged(text),
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: const Text('Next'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-        ],
-      );
-
-  void _nextPage(
-    PageController pageController,
-    TextEditingController textController,
-  ) {
+  void _nextPage(PageController pageController) {
     if (pageController.hasClients) {
       pageController.nextPage(
-        duration: kPageTansition,
+        duration: kPageTransition,
         curve: Curves.easeInOut,
       );
     }
+  }
 
-    if (textController.text.isNotEmpty) {
-      textController = TextEditingController.fromValue(TextEditingValue.empty);
+  void _prevPage(PageController pageController) {
+    if (pageController.hasClients) {
+      pageController.previousPage(
+        duration: kPageTransition,
+        curve: Curves.easeInOut,
+      );
     }
   }
+
+  Widget _buildTitle(BuildContext context, String text) => Text(text,
+      style: Theme.of(context)
+          .textTheme
+          .subtitle2!
+          .copyWith(color: Palette.slateGray));
+
+  Widget _buildRowOfButton(
+    BuildContext context,
+    bool enablePrev,
+    VoidCallback? onPressedPrev,
+    VoidCallback? onPressedNext,
+  ) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Visibility(
+            visible: enablePrev,
+            replacement: const SizedBox.shrink(),
+            child: TextButton(
+              onPressed: onPressedPrev,
+              child: const Text('Previous'),
+            ),
+          ),
+          TextButton(
+            onPressed: onPressedNext,
+            child: const Text('Next'),
+          ),
+        ],
+      );
 }
 
 class _ContainerForColumn extends StatelessWidget {
