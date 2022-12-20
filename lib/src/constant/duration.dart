@@ -1,2 +1,2 @@
 // Default page route transition duration
-const kTimeRoute = Duration(milliseconds: 820);
+const kPageTansition = Duration(milliseconds: 820);
