@@ -2,23 +2,27 @@ import 'package:flutter/services.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/db/dbs.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
+import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/shared/shared.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SupplierList extends StatefulWidget {
+class SupplierList extends ConsumerStatefulWidget {
   static const routeName = '/supplier-list';
 
   const SupplierList({super.key});
 
   @override
-  State<SupplierList> createState() => _SupplierListState();
+  SupplierListState createState() => SupplierListState();
 }
 
-class _SupplierListState extends State<SupplierList> {
+class SupplierListState extends ConsumerState<SupplierList> {
   final supplierNameController = TextEditingController();
   Set<int> selectedIndex = {};
 
   @override
   Widget build(BuildContext context) {
+    AsyncValue<List<Supplier>> suppliers = ref.watch(suppliersProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.supplier),
@@ -39,34 +43,31 @@ class _SupplierListState extends State<SupplierList> {
           ),
         ],
       ),
-      body: StreamBuilder<List<Supplier>>(
-        stream: DbUtils().listenSuppliers(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.data == null || snapshot.data!.isEmpty) {
+      body: suppliers.when(
+        data: (data) {
+          if (data.isEmpty) {
             return _buildEmptySupplier();
           }
 
           return ListView.separated(
             itemBuilder: (context, index) => ListTile(
-              onTap: () => _onTapSupplierList(snapshot.data![index].id),
-              onLongPress: () =>
-                  _onLongPressedSupplierList(snapshot.data![index].id),
-              tileColor: selectedIndex.contains(snapshot.data![index].id)
+              onTap: () => _onTapSupplierList(data[index].id),
+              onLongPress: () => _onLongPressedSupplierList(data[index].id),
+              tileColor: selectedIndex.contains(data[index].id)
                   ? Palette.azure
                   : Colors.white,
-              title: Text(snapshot.data![index].supplierName!),
-              trailing: selectedIndex.contains(snapshot.data![index].id)
+              title: Text(data[index].supplierName!),
+              trailing: selectedIndex.contains(data[index].id)
                   ? const Icon(Icons.check_box, color: Colors.teal)
                   : const SizedBox.shrink(),
             ),
             separatorBuilder: (context, index) => const Divider(height: 0.0),
-            itemCount: snapshot.data!.length,
+            itemCount: data.length,
           );
         },
+        error: (error, stackTrace) =>
+            const Center(child: Text('Failed to load')),
+        loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
   }
