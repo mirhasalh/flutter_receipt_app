@@ -56,7 +56,7 @@ class _SupplierListState extends State<SupplierList> {
               onLongPress: () =>
                   _onLongPressedSupplierList(snapshot.data![index].id),
               tileColor: selectedIndex.contains(snapshot.data![index].id)
-                  ? Palette.powderBlue
+                  ? Palette.azure
                   : Colors.white,
               title: Text(snapshot.data![index].supplierName!),
               trailing: selectedIndex.contains(snapshot.data![index].id)

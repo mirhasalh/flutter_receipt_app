@@ -7,5 +7,5 @@ class Palette {
   static const slateGray = Color(0xff66788a);
   static const eerieBlack = Color(0xff14171a);
   static const cultured = Color(0xffebedf0);
-  static const powderBlue = Color(0xffc8e6e6);
+  static const azure = Color(0xffeafbf6);
 }
