@@ -35,8 +35,7 @@ class AddItem extends HookWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // title: Text(AppLocalizations.of(context)!.addItem),
-        title: Text('${MediaQuery.of(context).size.height}'),
+        title: Text(AppLocalizations.of(context)!.addItem),
       ),
       body: PageView(
         controller: pageController,
@@ -45,7 +44,12 @@ class AddItem extends HookWidget {
         children: [
           _ContainerForColumn(
             children: [
-              _buildTitle(context, '1/7 Select an item type'),
+              if (itemType.value == ItemType.none)
+                _buildTitle(context, 'Select an item type'),
+              if (itemType.value == ItemType.goods)
+                _buildTitle(context, '1/6 Select an item type'),
+              if (itemType.value == ItemType.services)
+                _buildTitle(context, '1/4 Select an item type'),
               const SizedBox(height: 8.0),
               RadioListTile<ItemType>(
                 value: ItemType.goods,
@@ -82,17 +86,40 @@ class AddItem extends HookWidget {
           ),
           _ContainerForColumn(
             children: [
-              _buildTitle(context, '2/7 Type the name of the item'),
+              if (itemType.value == ItemType.goods)
+                _buildTitle(
+                    context, '2/6 Type the item name and stock quantity'),
+              if (itemType.value == ItemType.services)
+                _buildTitle(context, '2/4 Type the item name'),
               const SizedBox(height: 8.0),
               TextFormField(
                 controller: nameController,
                 style: _getTextFieldStyle(context),
-                decoration: const InputDecoration(
-                  hintText: 'Blue T-Shirt',
+                decoration: InputDecoration(
+                  labelText: 'Item name',
+                  hintText: itemType.value == ItemType.goods
+                      ? 'Blue T-Shirt'
+                      : 'Laundry 3kg',
                 ),
                 keyboardType: TextInputType.name,
                 onTap: () => focus.value = true,
                 onChanged: (text) => name.value = text,
+              ),
+              const SizedBox(height: 8.0),
+              Visibility(
+                visible: itemType.value == ItemType.goods,
+                replacement: const SizedBox.shrink(),
+                child: TextFormField(
+                  controller: stockController,
+                  decoration: const InputDecoration(
+                    labelText: 'Stock quantity',
+                    hintText: '0',
+                  ),
+                  style: _getTextFieldStyle(context),
+                  keyboardType: TextInputType.number,
+                  onTap: () => focus.value = true,
+                  onChanged: (text) => stock.value = text,
+                ),
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButton(
@@ -107,24 +134,41 @@ class AddItem extends HookWidget {
 
                   _prevPage(pageController);
                 },
-                name.value == ''
-                    ? null
-                    : () {
-                        if (focus.value == true) {
-                          FocusScope.of(context).unfocus();
-                          focus.value = false;
-                          return;
-                        }
+                itemType.value == ItemType.services
+                    ? name.value == ''
+                        ? null
+                        : () {
+                            if (focus.value == true) {
+                              FocusScope.of(context).unfocus();
+                              focus.value = false;
+                              return;
+                            }
 
-                        _nextPage(pageController);
-                      },
+                            _nextPage(pageController);
+                          }
+                    : name.value == '' ||
+                            stock.value == '0' ||
+                            stock.value == ''
+                        ? null
+                        : () {
+                            if (focus.value == true) {
+                              FocusScope.of(context).unfocus();
+                              focus.value = false;
+                              return;
+                            }
+
+                            _nextPage(pageController);
+                          },
               ),
               const SizedBox(height: 8.0),
             ],
           ),
           _ContainerForColumn(
             children: [
-              _buildTitle(context, '3/7 Enter a selling price per item'),
+              if (itemType.value == ItemType.goods)
+                _buildTitle(context, '3/6 Enter a selling price per item'),
+              if (itemType.value == ItemType.services)
+                _buildTitle(context, '3/4 Enter a selling price per item'),
               const SizedBox(height: 8.0),
               TextFormField(
                 controller: priceController,
@@ -164,187 +208,151 @@ class AddItem extends HookWidget {
               const SizedBox(height: 8.0),
             ],
           ),
-          _ContainerForColumn(
-            children: [
-              _buildTitle(context, '4/7 Enter stock quantity'),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                controller: stockController,
-                decoration: const InputDecoration(
-                  hintText: '0',
-                ),
-                style: _getTextFieldStyle(context),
-                keyboardType: TextInputType.number,
-                onTap: () => focus.value = true,
-                onChanged: (text) => stock.value = text,
-              ),
-              const SizedBox(height: 8.0),
-              _buildRowOfButton(
-                context,
-                true,
-                () {
-                  if (focus.value == true) {
-                    FocusScope.of(context).unfocus();
-                    focus.value = false;
-                    return;
-                  }
-
-                  _prevPage(pageController);
-                },
-                stock.value == '0' || stock.value == ''
-                    ? null
-                    : () {
-                        if (focus.value == true) {
-                          FocusScope.of(context).unfocus();
-                          focus.value = false;
-                          return;
-                        }
-
-                        _nextPage(pageController);
-                      },
-              ),
-              const SizedBox(height: 8.0),
-            ],
-          ),
-          _ContainerForColumn(
-            children: [
-              _buildTitle(context, '5/7 Enter wholesale price details'),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                controller: wholesalePriceController,
-                decoration: const InputDecoration(
-                  hintText: '0',
-                  labelText: 'Wholesale price',
-                ),
-                style: _getTextFieldStyle(context),
-                keyboardType: TextInputType.number,
-                onTap: () => focus.value = true,
-                onChanged: (text) => wholesalePrice.value = text,
-              ),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Flexible(
-                    child: TextFormField(
-                      controller: maxController,
-                      style: _getTextFieldStyle(context),
-                      decoration: const InputDecoration(
-                        labelText: 'Max',
-                        hintText: '0',
-                      ),
-                      keyboardType: TextInputType.number,
-                      onTap: () => focus.value = true,
-                      onChanged: (text) => max.value = text,
-                    ),
+          if (itemType.value == ItemType.goods)
+            _ContainerForColumn(
+              children: [
+                _buildTitle(context, '4/6 Enter wholesale price details'),
+                const SizedBox(height: 8.0),
+                TextFormField(
+                  controller: wholesalePriceController,
+                  decoration: const InputDecoration(
+                    hintText: '0',
+                    labelText: 'Wholesale price',
                   ),
-                  const SizedBox(width: 18.0),
-                  Flexible(
-                    child: TextFormField(
-                      controller: minController,
-                      style: _getTextFieldStyle(context),
-                      decoration: const InputDecoration(
-                        labelText: 'Min',
-                        hintText: '0',
+                  style: _getTextFieldStyle(context),
+                  keyboardType: TextInputType.number,
+                  onTap: () => focus.value = true,
+                  onChanged: (text) => wholesalePrice.value = text,
+                ),
+                const SizedBox(height: 8.0),
+                Row(
+                  children: [
+                    Flexible(
+                      child: TextFormField(
+                        controller: maxController,
+                        style: _getTextFieldStyle(context),
+                        decoration: const InputDecoration(
+                          labelText: 'Max',
+                          hintText: '0',
+                        ),
+                        keyboardType: TextInputType.number,
+                        onTap: () => focus.value = true,
+                        onChanged: (text) => max.value = text,
                       ),
-                      keyboardType: TextInputType.number,
-                      onTap: () => focus.value = true,
-                      onChanged: (text) => min.value = text,
                     ),
+                    const SizedBox(width: 18.0),
+                    Flexible(
+                      child: TextFormField(
+                        controller: minController,
+                        style: _getTextFieldStyle(context),
+                        decoration: const InputDecoration(
+                          labelText: 'Min',
+                          hintText: '0',
+                        ),
+                        keyboardType: TextInputType.number,
+                        onTap: () => focus.value = true,
+                        onChanged: (text) => min.value = text,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                _buildCaption(context,
+                    AppLocalizations.of(context)!.wholesalePriceCaption),
+                const SizedBox(height: 8.0),
+                _buildRowOfButton(
+                  context,
+                  true,
+                  () {
+                    if (focus.value == true) {
+                      FocusScope.of(context).unfocus();
+                      focus.value = false;
+                      return;
+                    }
+
+                    _prevPage(pageController);
+                  },
+                  wholesalePrice.value == '0' ||
+                          wholesalePrice.value == '' ||
+                          max.value == '0' ||
+                          max.value == '' ||
+                          min.value == '0' ||
+                          min.value == ''
+                      ? null
+                      : () {
+                          if (focus.value == true) {
+                            FocusScope.of(context).unfocus();
+                            focus.value = false;
+                            return;
+                          }
+
+                          _nextPage(pageController);
+                        },
+                ),
+                const SizedBox(height: 8.0),
+              ],
+            ),
+          if (itemType.value == ItemType.goods)
+            _ContainerForColumn(
+              children: [
+                _buildTitle(
+                    context, '5/6 Enter supplier name and initial price'),
+                const SizedBox(height: 8.0),
+                TextFormField(
+                  controller: supplierNameController,
+                  decoration: const InputDecoration(
+                    hintText: 'Father Grocery Store',
+                    labelText: 'Name (Optional)',
                   ),
-                ],
-              ),
-              const SizedBox(height: 8.0),
-              _buildCaption(
-                  context, AppLocalizations.of(context)!.wholesalePriceCaption),
-              const SizedBox(height: 8.0),
-              _buildRowOfButton(
-                context,
-                true,
-                () {
-                  if (focus.value == true) {
-                    FocusScope.of(context).unfocus();
-                    focus.value = false;
-                    return;
-                  }
+                  style: _getTextFieldStyle(context),
+                  keyboardType: TextInputType.name,
+                  onTap: () => focus.value = true,
+                  onChanged: (text) => supplierName.value = text,
+                ),
+                const SizedBox(height: 8.0),
+                TextFormField(
+                  controller: initialPriceController,
+                  decoration: const InputDecoration(
+                    labelText: 'Initial price (Optional)',
+                    hintText: '0',
+                  ),
+                  style: _getTextFieldStyle(context),
+                  keyboardType: TextInputType.number,
+                  onTap: () => focus.value = true,
+                  onChanged: (text) => initialPrice.value = text,
+                ),
+                const SizedBox(height: 8.0),
+                _buildRowOfButton(
+                  context,
+                  true,
+                  () {
+                    if (focus.value == true) {
+                      FocusScope.of(context).unfocus();
+                      focus.value = false;
+                      return;
+                    }
 
-                  _prevPage(pageController);
-                },
-                wholesalePrice.value == '0' ||
-                        wholesalePrice.value == '' ||
-                        max.value == '0' ||
-                        max.value == '' ||
-                        min.value == '0' ||
-                        min.value == ''
-                    ? null
-                    : () {
-                        if (focus.value == true) {
-                          FocusScope.of(context).unfocus();
-                          focus.value = false;
-                          return;
-                        }
+                    _prevPage(pageController);
+                  },
+                  () {
+                    if (focus.value == true) {
+                      FocusScope.of(context).unfocus();
+                      focus.value = false;
+                      return;
+                    }
 
-                        _nextPage(pageController);
-                      },
-              ),
-              const SizedBox(height: 8.0),
-            ],
-          ),
+                    _nextPage(pageController);
+                  },
+                ),
+                const SizedBox(height: 8.0),
+              ],
+            ),
           _ContainerForColumn(
             children: [
-              _buildTitle(context, '6/7 Enter supplier name and initial price'),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                controller: supplierNameController,
-                decoration: const InputDecoration(
-                  hintText: 'Father Grocery Store',
-                  labelText: 'Name (Optional)',
-                ),
-                style: _getTextFieldStyle(context),
-                keyboardType: TextInputType.name,
-                onTap: () => focus.value = true,
-                onChanged: (text) => supplierName.value = text,
-              ),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                controller: initialPriceController,
-                decoration: const InputDecoration(
-                  labelText: 'Initial price (Optional)',
-                  hintText: '0',
-                ),
-                style: _getTextFieldStyle(context),
-                keyboardType: TextInputType.number,
-                onTap: () => focus.value = true,
-                onChanged: (text) => initialPrice.value = text,
-              ),
-              const SizedBox(height: 8.0),
-              _buildRowOfButton(
-                context,
-                true,
-                () {
-                  if (focus.value == true) {
-                    FocusScope.of(context).unfocus();
-                    focus.value = false;
-                    return;
-                  }
-
-                  _prevPage(pageController);
-                },
-                () {
-                  if (focus.value == true) {
-                    FocusScope.of(context).unfocus();
-                    focus.value = false;
-                    return;
-                  }
-
-                  _nextPage(pageController);
-                },
-              ),
-              const SizedBox(height: 8.0),
-            ],
-          ),
-          _ContainerForColumn(
-            children: [
-              _buildTitle(context, '7/7 Review new item'),
+              if (itemType.value == ItemType.goods)
+                _buildTitle(context, '6/6 Review new item'),
+              if (itemType.value == ItemType.services)
+                _buildTitle(context, '4/4 Review new item'),
               const SizedBox(height: 8.0),
               _ContainerForReview(
                 title: name.value,
@@ -364,6 +372,7 @@ class AddItem extends HookWidget {
                 min: min.value,
                 supplierName: supplierName.value,
                 initialPrice: initialPrice.value,
+                itemType: itemType.value,
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButtonForAdd(
@@ -461,17 +470,19 @@ class _ContainerForColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-      child: Padding(
-        padding: const EdgeInsets.only(top: kToolbarHeight),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
+      child: ListView(
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height > 360.0
+              ? kToolbarHeight
+              : 18.0,
+          left: 18.0,
+          right: 18.0,
+          bottom: 18.0,
         ),
+        children: children,
       ),
     );
   }
@@ -483,6 +494,7 @@ class _ContainerForReview extends StatelessWidget {
     required this.titleTextStyle,
     required this.subtitleTextStyle,
     required this.valueTextStyle,
+    required this.itemType,
     required this.sellingPrice,
     required this.stock,
     required this.wholesalePrice,
@@ -496,6 +508,7 @@ class _ContainerForReview extends StatelessWidget {
   final TextStyle titleTextStyle;
   final TextStyle subtitleTextStyle;
   final TextStyle valueTextStyle;
+  final ItemType itemType;
   final String sellingPrice;
   final String stock;
   final String wholesalePrice;
@@ -554,8 +567,13 @@ class _ContainerForReview extends StatelessWidget {
                 style: subtitleTextStyle,
               ),
               Text(
-                stock,
-                style: valueTextStyle,
+                itemType == ItemType.services ? 'n/a' : stock,
+                style: itemType == ItemType.services
+                    ? Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Colors.black26)
+                    : valueTextStyle,
               ),
             ],
           ),
@@ -568,8 +586,13 @@ class _ContainerForReview extends StatelessWidget {
                 style: subtitleTextStyle,
               ),
               Text(
-                wholesalePrice,
-                style: valueTextStyle,
+                itemType == ItemType.services ? 'n/a' : wholesalePrice,
+                style: itemType == ItemType.services
+                    ? Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Colors.black26)
+                    : valueTextStyle,
               ),
             ],
           ),
@@ -581,8 +604,13 @@ class _ContainerForReview extends StatelessWidget {
                 style: subtitleTextStyle,
               ),
               Text(
-                max,
-                style: valueTextStyle,
+                itemType == ItemType.services ? 'n/a' : max,
+                style: itemType == ItemType.services
+                    ? Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Colors.black26)
+                    : valueTextStyle,
               ),
             ],
           ),
@@ -594,8 +622,13 @@ class _ContainerForReview extends StatelessWidget {
                 style: subtitleTextStyle,
               ),
               Text(
-                min,
-                style: valueTextStyle,
+                itemType == ItemType.services ? 'n/a' : min,
+                style: itemType == ItemType.services
+                    ? Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Colors.black26)
+                    : valueTextStyle,
               ),
             ],
           ),
@@ -608,8 +641,17 @@ class _ContainerForReview extends StatelessWidget {
                 style: subtitleTextStyle,
               ),
               Text(
-                supplierName == '' ? 'n/a' : supplierName,
-                style: valueTextStyle,
+                itemType == ItemType.goods
+                    ? supplierName == ''
+                        ? 'n/a'
+                        : supplierName
+                    : 'n/a',
+                style: itemType == ItemType.services
+                    ? Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Colors.black26)
+                    : valueTextStyle,
               ),
             ],
           ),
@@ -621,8 +663,17 @@ class _ContainerForReview extends StatelessWidget {
                 style: subtitleTextStyle,
               ),
               Text(
-                initialPrice == '' ? 'n/a' : initialPrice,
-                style: valueTextStyle,
+                itemType == ItemType.goods
+                    ? initialPrice == ''
+                        ? 'n/a'
+                        : initialPrice
+                    : 'n/a',
+                style: itemType == ItemType.services
+                    ? Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Colors.black26)
+                    : valueTextStyle,
               ),
             ],
           ),
