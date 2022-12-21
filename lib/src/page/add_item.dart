@@ -35,7 +35,8 @@ class AddItem extends HookWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addItem),
+        // title: Text(AppLocalizations.of(context)!.addItem),
+        title: Text('${MediaQuery.of(context).size.height}'),
       ),
       body: PageView(
         controller: pageController,
