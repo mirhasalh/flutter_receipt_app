@@ -14,5 +14,6 @@
     "goodsOrServicesCaption": "Barang adalah barang berwujud yang diinginkan atau dimiliki konsumen. Jasa bukanlah suatu entitas berwujud atau fisik tetapi tetap dicari oleh konsumen",
     "cancel": "Batalkan",
     "name": "Nama",
-    "typeSupplierName": "Ketik nama pemasok"
+    "typeSupplierName": "Ketik nama pemasok",
+    "wholesalePriceCaption": "Harga grosir adalah harga yang dikenakan untuk suatu produk yang dijual dalam jumlah besar ke kelompok perdagangan atau distributor besar sebagai lawan dari apa yang dibebankan kepada konsumen"
 }

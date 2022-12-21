@@ -62,5 +62,9 @@
     "typeSupplierName": "Type the name of the supplier",
     "@typeSupplierName": {
       "description": "A hint text for supplier name text field"
+    },
+    "wholesalePriceCaption": "Wholesale price is the price charged for a product as sold in bulk to large trade or distributor groups as opposed to what is charged to consumers",
+    "@wholesalePriceCaption": {
+      "description": "A caption for wholesale price text field"
     }
 }
