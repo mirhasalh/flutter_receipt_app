@@ -300,14 +300,32 @@ class AddItem extends HookWidget {
             children: [
               _buildTitle(context, '7/7 Review new item'),
               const SizedBox(height: 8.0),
-              Text(name.value),
-              Text('${sellingPrice.value}'),
-              Text('${stock.value}'),
-              Text('${wholesalePrice.value}'),
-              Text('${max.value}'),
-              Text('${min.value}'),
-              Text(supplierName.value),
-              Text('${initialPrice.value}'),
+              _ContainerForReview(
+                title: name.value,
+                titleTextStyle:
+                    Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Palette.slateGray,
+                          fontWeight: FontWeight.bold,
+                        ),
+                subtitleTextStyle: Theme.of(context).textTheme.caption!,
+                valueTextStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      color: Palette.eerieBlack,
+                    ),
+                sellingPrice: '${sellingPrice.value}',
+                stock: '${stock.value}',
+                wholesalePrice: '${wholesalePrice.value}',
+                max: '${max.value}',
+                min: '${min.value}',
+                supplierName: supplierName.value,
+                initialPrice: initialPrice.value,
+              ),
+              const SizedBox(height: 8.0),
+              _buildRowOfButtonForAdd(
+                context,
+                () => _prevPage(pageController),
+                null,
+              ),
+              const SizedBox(height: 8.0),
             ],
           ),
         ],
@@ -359,6 +377,24 @@ class AddItem extends HookWidget {
           ),
         ],
       );
+  Widget _buildRowOfButtonForAdd(
+    BuildContext context,
+    VoidCallback? onPressedPrev,
+    VoidCallback? onPressedAdd,
+  ) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: onPressedPrev,
+            child: const Text('Previous'),
+          ),
+          TextButton(
+            onPressed: onPressedAdd,
+            child: Text(AppLocalizations.of(context)!.addItem),
+          ),
+        ],
+      );
 
   TextStyle _getTitleTextStyle(BuildContext context) =>
       Theme.of(context).textTheme.subtitle2!.copyWith(color: Palette.slateGray);
@@ -390,6 +426,161 @@ class _ContainerForColumn extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: children,
         ),
+      ),
+    );
+  }
+}
+
+class _ContainerForReview extends StatelessWidget {
+  const _ContainerForReview({
+    required this.title,
+    required this.titleTextStyle,
+    required this.subtitleTextStyle,
+    required this.valueTextStyle,
+    required this.sellingPrice,
+    required this.stock,
+    required this.wholesalePrice,
+    required this.max,
+    required this.min,
+    required this.supplierName,
+    required this.initialPrice,
+  });
+
+  final String title;
+  final TextStyle titleTextStyle;
+  final TextStyle subtitleTextStyle;
+  final TextStyle valueTextStyle;
+  final String sellingPrice;
+  final String stock;
+  final String wholesalePrice;
+  final String max;
+  final String min;
+  final String supplierName;
+  final double initialPrice;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18.0),
+        border: Border.all(
+          color: Palette.cultured,
+          width: 1.0,
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(
+        vertical: 28.0,
+        horizontal: 18.0,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: titleTextStyle,
+              ),
+            ],
+          ),
+          const SizedBox(height: 18.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Selling price',
+                style: subtitleTextStyle,
+              ),
+              Text(
+                sellingPrice,
+                style: valueTextStyle,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Stock quantity',
+                style: subtitleTextStyle,
+              ),
+              Text(
+                stock,
+                style: valueTextStyle,
+              ),
+            ],
+          ),
+          const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Wholesale price',
+                style: subtitleTextStyle,
+              ),
+              Text(
+                wholesalePrice,
+                style: valueTextStyle,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Max',
+                style: subtitleTextStyle,
+              ),
+              Text(
+                max,
+                style: valueTextStyle,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Min',
+                style: subtitleTextStyle,
+              ),
+              Text(
+                min,
+                style: valueTextStyle,
+              ),
+            ],
+          ),
+          const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Supplier name',
+                style: subtitleTextStyle,
+              ),
+              Text(
+                supplierName == '' ? 'n/a' : supplierName,
+                style: valueTextStyle,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Initial price',
+                style: subtitleTextStyle,
+              ),
+              Text(
+                initialPrice == 0 ? 'n/a' : '$initialPrice',
+                style: valueTextStyle,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
