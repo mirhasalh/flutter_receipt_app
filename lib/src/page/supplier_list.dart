@@ -116,14 +116,12 @@ class SupplierListState extends ConsumerState<SupplierList> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
                       child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     const SizedBox(width: 8.0),
-                    ElevatedButton(
+                    TextButton(
                       onPressed: supplierNameController.text.isEmpty
                           ? null
                           : () => _onAddSupplier(supplierNameController.text),
