@@ -44,6 +44,7 @@ dependencies:
   intl: ^0.17.0
   flutter_riverpod: ^2.1.1
   flutter_hooks: ^0.18.5+1
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,9 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
+  assets:
+    - svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
