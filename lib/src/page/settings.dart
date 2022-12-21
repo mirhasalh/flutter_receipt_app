@@ -1,5 +1,6 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
+import 'package:flutter_receipt_app/src/palette.dart';
 
 class Settings extends StatelessWidget {
   static const routeName = '/settings';
@@ -21,7 +22,10 @@ class Settings extends StatelessWidget {
                   LanguageSettingsArgs('${Localizations.localeOf(context)}'),
             ),
             tileColor: Colors.white,
-            leading: const Icon(Icons.language_outlined),
+            leading: const Icon(
+              Icons.language_outlined,
+              color: Palette.slateGray,
+            ),
             title: Text(AppLocalizations.of(context)!.languages),
             subtitle: Text(AppLocalizations.of(context)!.languageSubtitle),
           ),
