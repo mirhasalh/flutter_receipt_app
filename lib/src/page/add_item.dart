@@ -23,13 +23,13 @@ class AddItem extends HookWidget {
     final itemType = useState<ItemType>(ItemType.none);
     final type = useState<int>(0);
     final name = useState<String>('');
-    final sellingPrice = useState<double>(0);
-    final stock = useState<int>(0);
-    final wholesalePrice = useState<double>(0);
-    final max = useState<int>(0);
-    final min = useState<int>(0);
+    final sellingPrice = useState<String>('');
+    final stock = useState<String>('');
+    final wholesalePrice = useState<String>('');
+    final max = useState<String>('');
+    final min = useState<String>('');
     final supplierName = useState<String>('');
-    final initialPrice = useState<double>(0);
+    final initialPrice = useState<String>('');
     final focus = useState<bool>(false);
 
     return Scaffold(
@@ -87,7 +87,7 @@ class AddItem extends HookWidget {
                 controller: nameController,
                 style: _getTextFieldStyle(context),
                 decoration: const InputDecoration(
-                  hintText: 'Pen',
+                  hintText: 'Blue T-Shirt',
                 ),
                 keyboardType: TextInputType.name,
                 onTap: () => focus.value = true,
@@ -97,7 +97,15 @@ class AddItem extends HookWidget {
               _buildRowOfButton(
                 context,
                 true,
-                () => _prevPage(pageController),
+                () {
+                  if (focus.value == true) {
+                    FocusScope.of(context).unfocus();
+                    focus.value = false;
+                    return;
+                  }
+
+                  _prevPage(pageController);
+                },
                 name.value == ''
                     ? null
                     : () {
@@ -125,14 +133,22 @@ class AddItem extends HookWidget {
                 style: _getTextFieldStyle(context),
                 keyboardType: TextInputType.number,
                 onTap: () => focus.value = true,
-                onChanged: (text) => sellingPrice.value = double.parse(text),
+                onChanged: (text) => sellingPrice.value = text,
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButton(
                 context,
                 true,
-                () => _prevPage(pageController),
-                sellingPrice.value <= 0
+                () {
+                  if (focus.value == true) {
+                    FocusScope.of(context).unfocus();
+                    focus.value = false;
+                    return;
+                  }
+
+                  _prevPage(pageController);
+                },
+                sellingPrice.value == '0' || sellingPrice.value == ''
                     ? null
                     : () {
                         if (focus.value == true) {
@@ -159,14 +175,22 @@ class AddItem extends HookWidget {
                 style: _getTextFieldStyle(context),
                 keyboardType: TextInputType.number,
                 onTap: () => focus.value = true,
-                onChanged: (text) => stock.value = int.parse(text),
+                onChanged: (text) => stock.value = text,
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButton(
                 context,
                 true,
-                () => _prevPage(pageController),
-                stock.value <= 0
+                () {
+                  if (focus.value == true) {
+                    FocusScope.of(context).unfocus();
+                    focus.value = false;
+                    return;
+                  }
+
+                  _prevPage(pageController);
+                },
+                stock.value == '0' || stock.value == ''
                     ? null
                     : () {
                         if (focus.value == true) {
@@ -194,7 +218,7 @@ class AddItem extends HookWidget {
                 style: _getTextFieldStyle(context),
                 keyboardType: TextInputType.number,
                 onTap: () => focus.value = true,
-                onChanged: (text) => wholesalePrice.value = double.parse(text),
+                onChanged: (text) => wholesalePrice.value = text,
               ),
               const SizedBox(height: 8.0),
               Row(
@@ -209,7 +233,7 @@ class AddItem extends HookWidget {
                       ),
                       keyboardType: TextInputType.number,
                       onTap: () => focus.value = true,
-                      onChanged: (text) => max.value = int.parse(text),
+                      onChanged: (text) => max.value = text,
                     ),
                   ),
                   const SizedBox(width: 18.0),
@@ -223,7 +247,7 @@ class AddItem extends HookWidget {
                       ),
                       keyboardType: TextInputType.number,
                       onTap: () => focus.value = true,
-                      onChanged: (text) => min.value = int.parse(text),
+                      onChanged: (text) => min.value = text,
                     ),
                   ),
                 ],
@@ -235,8 +259,21 @@ class AddItem extends HookWidget {
               _buildRowOfButton(
                 context,
                 true,
-                () => _prevPage(pageController),
-                wholesalePrice.value <= 0 && max.value <= 0 && min.value <= 0
+                () {
+                  if (focus.value == true) {
+                    FocusScope.of(context).unfocus();
+                    focus.value = false;
+                    return;
+                  }
+
+                  _prevPage(pageController);
+                },
+                wholesalePrice.value == '0' ||
+                        wholesalePrice.value == '' ||
+                        max.value == '0' ||
+                        max.value == '' ||
+                        min.value == '0' ||
+                        min.value == ''
                     ? null
                     : () {
                         if (focus.value == true) {
@@ -276,13 +313,21 @@ class AddItem extends HookWidget {
                 style: _getTextFieldStyle(context),
                 keyboardType: TextInputType.number,
                 onTap: () => focus.value = true,
-                onChanged: (text) => initialPrice.value = double.parse(text),
+                onChanged: (text) => initialPrice.value = text,
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButton(
                 context,
                 true,
-                () => _prevPage(pageController),
+                () {
+                  if (focus.value == true) {
+                    FocusScope.of(context).unfocus();
+                    focus.value = false;
+                    return;
+                  }
+
+                  _prevPage(pageController);
+                },
                 () {
                   if (focus.value == true) {
                     FocusScope.of(context).unfocus();
@@ -311,11 +356,11 @@ class AddItem extends HookWidget {
                 valueTextStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: Palette.eerieBlack,
                     ),
-                sellingPrice: '${sellingPrice.value}',
-                stock: '${stock.value}',
-                wholesalePrice: '${wholesalePrice.value}',
-                max: '${max.value}',
-                min: '${min.value}',
+                sellingPrice: sellingPrice.value,
+                stock: stock.value,
+                wholesalePrice: wholesalePrice.value,
+                max: max.value,
+                min: min.value,
                 supplierName: supplierName.value,
                 initialPrice: initialPrice.value,
               ),
@@ -456,7 +501,7 @@ class _ContainerForReview extends StatelessWidget {
   final String max;
   final String min;
   final String supplierName;
-  final double initialPrice;
+  final String initialPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -575,7 +620,7 @@ class _ContainerForReview extends StatelessWidget {
                 style: subtitleTextStyle,
               ),
               Text(
-                initialPrice == 0 ? 'n/a' : '$initialPrice',
+                initialPrice == '' ? 'n/a' : initialPrice,
                 style: valueTextStyle,
               ),
             ],
