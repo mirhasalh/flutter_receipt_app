@@ -1,3 +1,3 @@
 class Svgs {
-  static const icon = 'icon.svg';
+  static const icon = 'svg/icon.svg';
 }
