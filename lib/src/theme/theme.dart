@@ -24,6 +24,7 @@ ThemeData kTheme = ThemeData(
     titleTextStyle: TextStyle(
       color: Palette.eerieBlack,
       fontSize: 20.0,
+      fontWeight: FontWeight.bold,
     ),
     elevation: 0.0,
   ),
