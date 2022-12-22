@@ -22,14 +22,14 @@ ThemeData kTheme = ThemeData(
     backgroundColor: Colors.white,
     iconTheme: IconThemeData(color: Palette.slateGray),
     titleTextStyle: TextStyle(
-      color: Palette.eerieBlack,
+      color: Palette.raisinBlack,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
     ),
     elevation: 0.0,
   ),
   textTheme: const TextTheme(
-    bodyText1: TextStyle(color: Palette.eerieBlack),
-    bodyText2: TextStyle(color: Palette.eerieBlack),
+    bodyText1: TextStyle(color: Palette.raisinBlack),
+    bodyText2: TextStyle(color: Palette.raisinBlack),
   ),
 );
