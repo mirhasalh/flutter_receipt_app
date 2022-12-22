@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum Lang { en, id }
 
-class LanguageSettings extends ConsumerStatefulWidget {
-  static const routeName = '/language-settings';
+class LanguageSettingsPage extends ConsumerStatefulWidget {
+  static const routeName = '/languageSettings';
 
-  const LanguageSettings({super.key, required this.locale});
+  const LanguageSettingsPage({super.key, required this.locale});
 
   final String locale;
 
@@ -15,7 +15,7 @@ class LanguageSettings extends ConsumerStatefulWidget {
   LanguageSettingsState createState() => LanguageSettingsState();
 }
 
-class LanguageSettingsState extends ConsumerState<LanguageSettings> {
+class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
   late Lang _lang;
   final _tileColor = Colors.white;
   final _controlAffinity = ListTileControlAffinity.trailing;

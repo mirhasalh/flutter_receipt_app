@@ -6,16 +6,16 @@ import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/shared/shared.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SupplierList extends ConsumerStatefulWidget {
-  static const routeName = '/supplier-list';
+class SupplierPage extends ConsumerStatefulWidget {
+  static const routeName = '/supplier';
 
-  const SupplierList({super.key});
+  const SupplierPage({super.key});
 
   @override
   SupplierListState createState() => SupplierListState();
 }
 
-class SupplierListState extends ConsumerState<SupplierList> {
+class SupplierListState extends ConsumerState<SupplierPage> {
   final supplierNameController = TextEditingController();
   Set<int> selectedIndex = {};
 

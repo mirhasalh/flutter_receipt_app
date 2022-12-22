@@ -3,10 +3,10 @@ import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-class Home extends StatelessWidget {
-  static const routeName = '/home';
+class DocumentPage extends StatelessWidget {
+  static const routeName = '/document';
 
-  const Home({super.key});
+  const DocumentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
           ),
           SpeedDialChild(
             onTap: () {
-              Navigator.of(context).pushNamed(ItemList.routeName);
+              Navigator.of(context).pushNamed(ItemPage.routeName);
             },
             label: AppLocalizations.of(context)!.seeAllItems,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
           ),
           SpeedDialChild(
             onTap: () {
-              Navigator.of(context).pushNamed(SupplierList.routeName);
+              Navigator.of(context).pushNamed(SupplierPage.routeName);
             },
             label: AppLocalizations.of(context)!.supplier,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
           ),
           SpeedDialChild(
             onTap: () {
-              Navigator.of(context).pushNamed(Settings.routeName);
+              Navigator.of(context).pushNamed(SettingsPage.routeName);
             },
             label: AppLocalizations.of(context)!.settings,
             labelStyle: const TextStyle(color: Palette.eerieBlack),

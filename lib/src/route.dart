@@ -5,23 +5,23 @@ import 'package:flutter_receipt_app/src/timed_page_route.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
-      return MaterialPageRoute(builder: (_) => const Auth());
-    case '/home':
-      return TimedPageRoute(builder: (_) => const Home());
+      return MaterialPageRoute(builder: (_) => const AuthPage());
+    case '/document':
+      return TimedPageRoute(builder: (_) => const DocumentPage());
     case '/settings':
-      return TimedPageRoute(builder: (_) => const Settings());
-    case '/language-settings':
+      return TimedPageRoute(builder: (_) => const SettingsPage());
+    case '/languageSettings':
       final args = settings.arguments as LanguageSettingsArgs;
       return TimedPageRoute(
-        builder: (_) => LanguageSettings(locale: args.locale),
+        builder: (_) => LanguageSettingsPage(locale: args.locale),
       );
-    case '/item-list':
-      return TimedPageRoute(builder: (_) => const ItemList());
-    case '/add-item':
-      return TimedPageRoute(builder: (_) => const AddItem());
-    case '/supplier-list':
-      return TimedPageRoute(builder: (_) => const SupplierList());
+    case '/item':
+      return TimedPageRoute(builder: (_) => const ItemPage());
+    case '/addItem':
+      return TimedPageRoute(builder: (_) => const AddItemPage());
+    case '/supplier':
+      return TimedPageRoute(builder: (_) => const SupplierPage());
     default:
-      return TimedPageRoute(builder: (_) => const Auth());
+      return TimedPageRoute(builder: (_) => const AuthPage());
   }
 }

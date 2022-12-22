@@ -4,10 +4,10 @@ import 'package:flutter_receipt_app/src/constant/duration.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/utils/add_item_utils.dart';
 
-class AddItem extends HookWidget {
-  static const routeName = '/add-item';
+class AddItemPage extends HookWidget {
+  static const routeName = '/addItem';
 
-  const AddItem({super.key});
+  const AddItemPage({super.key});
 
   @override
   Widget build(BuildContext context) {

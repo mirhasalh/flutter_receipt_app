@@ -4,16 +4,16 @@ import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Auth extends StatefulWidget {
+class AuthPage extends StatefulWidget {
   static const routeName = '/';
 
-  const Auth({super.key});
+  const AuthPage({super.key});
 
   @override
-  State<Auth> createState() => _AuthState();
+  State<AuthPage> createState() => _AuthPageState();
 }
 
-class _AuthState extends State<Auth> {
+class _AuthPageState extends State<AuthPage> {
   @override
   void initState() {
     super.initState();
@@ -60,6 +60,6 @@ class _AuthState extends State<Auth> {
   void _navToHome() {
     Navigator.of(context).popUntil((route) => route.isFirst);
 
-    Navigator.of(context).pushReplacementNamed(Home.routeName);
+    Navigator.of(context).pushReplacementNamed(DocumentPage.routeName);
   }
 }

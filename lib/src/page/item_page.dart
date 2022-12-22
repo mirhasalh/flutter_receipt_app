@@ -1,10 +1,10 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
 
-class ItemList extends StatelessWidget {
-  static const routeName = '/item-list';
+class ItemPage extends StatelessWidget {
+  static const routeName = '/item';
 
-  const ItemList({super.key});
+  const ItemPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class ItemList extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(AddItem.routeName);
+              Navigator.of(context).pushNamed(AddItemPage.routeName);
             },
             tooltip: AppLocalizations.of(context)!.addItem,
             color: Colors.teal,
