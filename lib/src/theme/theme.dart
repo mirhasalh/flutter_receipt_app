@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_receipt_app/src/assets/fonts.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 
@@ -19,6 +20,9 @@ ThemeData kTheme = ThemeData(
     TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
   }),
   appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
     backgroundColor: Colors.white,
     iconTheme: IconThemeData(color: Palette.slateGray),
     titleTextStyle: TextStyle(
