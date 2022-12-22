@@ -17,13 +17,13 @@ class DocumentPage extends StatelessWidget {
       floatingActionButton: SpeedDial(
         tooltip: AppLocalizations.of(context)!.openMenu,
         backgroundColor: Palette.naplesYellow,
-        foregroundColor: Palette.raisinBlack,
+        foregroundColor: Palette.eerieBlack,
         children: [
           SpeedDialChild(
             onTap: () {},
             label: AppLocalizations.of(context)!.createNewDoc,
-            labelStyle: const TextStyle(color: Palette.raisinBlack),
-            foregroundColor: Palette.raisinBlack,
+            labelStyle: const TextStyle(color: Palette.eerieBlack),
+            foregroundColor: Palette.eerieBlack,
             child: const Icon(Icons.add),
           ),
           SpeedDialChild(
@@ -31,8 +31,8 @@ class DocumentPage extends StatelessWidget {
               Navigator.of(context).pushNamed(ItemPage.routeName);
             },
             label: AppLocalizations.of(context)!.seeAllItems,
-            labelStyle: const TextStyle(color: Palette.raisinBlack),
-            foregroundColor: Palette.raisinBlack,
+            labelStyle: const TextStyle(color: Palette.eerieBlack),
+            foregroundColor: Palette.eerieBlack,
             child: const Icon(Icons.all_inbox_outlined),
           ),
           SpeedDialChild(
@@ -40,8 +40,8 @@ class DocumentPage extends StatelessWidget {
               Navigator.of(context).pushNamed(SupplierPage.routeName);
             },
             label: AppLocalizations.of(context)!.supplier,
-            labelStyle: const TextStyle(color: Palette.raisinBlack),
-            foregroundColor: Palette.raisinBlack,
+            labelStyle: const TextStyle(color: Palette.eerieBlack),
+            foregroundColor: Palette.eerieBlack,
             child: const Icon(Icons.warehouse_outlined),
           ),
           SpeedDialChild(
@@ -49,8 +49,8 @@ class DocumentPage extends StatelessWidget {
               Navigator.of(context).pushNamed(SettingsPage.routeName);
             },
             label: AppLocalizations.of(context)!.settings,
-            labelStyle: const TextStyle(color: Palette.raisinBlack),
-            foregroundColor: Palette.raisinBlack,
+            labelStyle: const TextStyle(color: Palette.eerieBlack),
+            foregroundColor: Palette.eerieBlack,
             child: const Icon(Icons.settings_outlined),
           ),
         ],

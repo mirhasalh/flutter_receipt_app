@@ -363,7 +363,7 @@ class AddItemPage extends HookWidget {
                         ),
                 subtitleTextStyle: Theme.of(context).textTheme.caption!,
                 valueTextStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Palette.raisinBlack,
+                      color: Palette.eerieBlack,
                     ),
                 sellingPrice: sellingPrice.value,
                 stock: stock.value,
@@ -457,7 +457,7 @@ class AddItemPage extends HookWidget {
   TextStyle _getTextFieldStyle(BuildContext context) => Theme.of(context)
       .textTheme
       .titleLarge!
-      .copyWith(color: Palette.raisinBlack);
+      .copyWith(color: Palette.eerieBlack);
 
   Text _buildCaption(BuildContext context, String caption) =>
       Text(caption, style: Theme.of(context).textTheme.caption);
