@@ -1,6 +1,6 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/provider/locale_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum Lang { en, id }
 
