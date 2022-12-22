@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_receipt_app/src/constant/duration.dart';
 
 class TimedPageRoute extends MaterialPageRoute {
-  TimedPageRoute({
-    builder,
-    this.time = kPageTransition,
-  }) : super(builder: builder);
+  TimedPageRoute({builder, this.time = kPageTransition})
+      : super(builder: builder);
 
   Duration time;
 
