@@ -1,6 +1,5 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
-import 'package:flutter_receipt_app/src/palette.dart';
 
 class SettingsPage extends StatelessWidget {
   static const routeName = '/settings';
