@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.tseg.flutter_receipt_app">
    <application
-        android:label="Revice"
+        android:label="Proof"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
