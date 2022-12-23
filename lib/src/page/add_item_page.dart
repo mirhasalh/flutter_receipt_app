@@ -1,16 +1,20 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/duration.dart';
+import 'package:flutter_receipt_app/src/constant/sizes.dart';
+import 'package:flutter_receipt_app/src/db/supplier.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
+import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/utils/add_item_utils.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AddItemPage extends HookWidget {
+class AddItemPage extends HookConsumerWidget {
   static const routeName = '/addItem';
 
   const AddItemPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final pageController = usePageController();
     final nameController = useTextEditingController();
     final priceController = useTextEditingController();
@@ -31,6 +35,7 @@ class AddItemPage extends HookWidget {
     final supplierName = useState<String>('');
     final initialPrice = useState<String>('');
     final focus = useState<bool>(false);
+    AsyncValue<List<Supplier>> suppliers = ref.watch(suppliersProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -306,7 +311,14 @@ class AddItemPage extends HookWidget {
                   ),
                   style: _getTextFieldStyle(context),
                   keyboardType: TextInputType.name,
-                  onTap: () => focus.value = true,
+                  onTap: () {
+                    focus.value = true;
+                    _showSupplierList(
+                      context,
+                      suppliers,
+                      (value) {},
+                    );
+                  },
                   onChanged: (text) => supplierName.value = text,
                 ),
                 const SizedBox(height: 8.0),
@@ -461,6 +473,46 @@ class AddItemPage extends HookWidget {
 
   Text _buildCaption(BuildContext context, String caption) =>
       Text(caption, style: Theme.of(context).textTheme.caption);
+
+  void _showSupplierList(
+    BuildContext context,
+    AsyncValue<List<Supplier>> stream,
+    Function(String) onChanged,
+  ) {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(kBottomSheetBorderRadius),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.9,
+        minChildSize: 0.5,
+        maxChildSize: 1.0,
+        builder: (context, scrollController) => stream.when(
+          data: (data) {
+            if (data.isEmpty) {
+              return const Text('No data');
+            }
+
+            return ListView.separated(
+              controller: scrollController,
+              itemBuilder: (context, index) => ListTile(
+                onTap: onChanged(data[index].supplierName!),
+                tileColor: Colors.white,
+              ),
+              separatorBuilder: (context, index) => const Divider(height: 0.0),
+              itemCount: data.length,
+            );
+          },
+          error: (error, stackTrace) => const SizedBox.shrink(),
+          loading: () => const SizedBox.shrink(),
+        ),
+      ),
+    );
+  }
 }
 
 class _ContainerForColumn extends StatelessWidget {
