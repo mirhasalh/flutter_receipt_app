@@ -1,7 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/duration.dart';
-import 'package:flutter_receipt_app/src/constant/sizes.dart';
 import 'package:flutter_receipt_app/src/db/supplier.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
@@ -311,14 +310,6 @@ class AddItemPage extends HookConsumerWidget {
                   ),
                   style: _getTextFieldStyle(context),
                   keyboardType: TextInputType.name,
-                  onTap: () {
-                    focus.value = true;
-                    _showSupplierList(
-                      context,
-                      suppliers,
-                      (value) {},
-                    );
-                  },
                   onChanged: (text) => supplierName.value = text,
                 ),
                 const SizedBox(height: 8.0),
@@ -473,46 +464,6 @@ class AddItemPage extends HookConsumerWidget {
 
   Text _buildCaption(BuildContext context, String caption) =>
       Text(caption, style: Theme.of(context).textTheme.caption);
-
-  void _showSupplierList(
-    BuildContext context,
-    AsyncValue<List<Supplier>> stream,
-    Function(String) onChanged,
-  ) {
-    showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(kBottomSheetBorderRadius),
-        ),
-      ),
-      backgroundColor: Colors.white,
-      context: context,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.9,
-        minChildSize: 0.5,
-        maxChildSize: 1.0,
-        builder: (context, scrollController) => stream.when(
-          data: (data) {
-            if (data.isEmpty) {
-              return const Text('No data');
-            }
-
-            return ListView.separated(
-              controller: scrollController,
-              itemBuilder: (context, index) => ListTile(
-                onTap: onChanged(data[index].supplierName!),
-                tileColor: Colors.white,
-              ),
-              separatorBuilder: (context, index) => const Divider(height: 0.0),
-              itemCount: data.length,
-            );
-          },
-          error: (error, stackTrace) => const SizedBox.shrink(),
-          loading: () => const SizedBox.shrink(),
-        ),
-      ),
-    );
-  }
 }
 
 class _ContainerForColumn extends StatelessWidget {
