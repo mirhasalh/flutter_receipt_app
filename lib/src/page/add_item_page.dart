@@ -363,6 +363,9 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                   },
                 ),
                 const SizedBox(height: 8.0),
+                _buildCaption(
+                    'You can manage the supplier list through the supplier page which is available in the menu on the first page of the app'),
+                const SizedBox(height: 8.0),
               ],
             ),
           _ContainerForColumn(
@@ -500,25 +503,55 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                 streamSupplier.when(
                   data: (data) {
                     if (data.isEmpty) {
-                      return const Text('No data');
+                      return Expanded(
+                        child: ListView(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical:
+                                      MediaQuery.of(context).size.height / 4.5),
+                              child: Text(
+                                'No data',
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(color: Colors.black54),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
                     }
 
                     return Expanded(
                       child: ListView.separated(
                         controller: scrollController,
                         padding: const EdgeInsets.only(top: 12.0),
-                        itemBuilder: (context, index) => ListTile(
-                          onTap: () {
-                            setState(() {
-                              supplierNameController.text =
-                                  data[index].supplierName!;
-                              supplierName = data[index].supplierName!;
-                            });
+                        itemBuilder: (context, index) => SizedBox(
+                          height: kToolbarHeight,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              setState(() {
+                                supplierNameController.text =
+                                    data[index].supplierName!;
+                                supplierName = data[index].supplierName!;
+                              });
 
-                            Navigator.of(context).pop();
-                          },
-                          tileColor: Colors.white,
-                          title: Text(data[index].supplierName!),
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              data[index].supplierName!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Palette.eerieBlack,
+                                  ),
+                            ),
+                          ),
                         ),
                         separatorBuilder: (context, index) =>
                             const Divider(height: 0.0),
