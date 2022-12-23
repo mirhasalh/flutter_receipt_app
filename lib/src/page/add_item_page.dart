@@ -2,7 +2,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/duration.dart';
 import 'package:flutter_receipt_app/src/constant/sizes.dart';
-import 'package:flutter_receipt_app/src/db/supplier.dart';
+import 'package:flutter_receipt_app/src/db/dbs.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/shared/drag_handle.dart';
@@ -398,7 +398,29 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
               const SizedBox(height: 8.0),
               _buildRowOfButtonForAdd(
                 () => _prevPage(pageController),
-                null,
+                () {
+                  var item = Item();
+
+                  item.type = AddItemUtils().getType(itemType.value);
+                  item.name = name.value.trim();
+                  item.sellingPrice = sellingPrice.value == ''
+                      ? 0
+                      : double.parse(sellingPrice.value);
+                  item.stock = stock.value == '' ? 0 : int.parse(stock.value);
+                  item.wholesalePrice = wholesalePrice.value == ''
+                      ? 0
+                      : double.parse(wholesalePrice.value);
+                  item.max = max.value == '' ? 0 : int.parse(max.value);
+                  item.min = min.value == '' ? 0 : int.parse(min.value);
+                  item.supplierName = supplierName == '' ? 'n/a' : supplierName;
+                  item.initialPrice = initialPrice.value == ''
+                      ? 0
+                      : double.parse(initialPrice.value);
+
+                  DbUtils()
+                      .addItem(item)
+                      .then((_) => Navigator.of(context).pop());
+                },
               ),
               const SizedBox(height: 8.0),
             ],
