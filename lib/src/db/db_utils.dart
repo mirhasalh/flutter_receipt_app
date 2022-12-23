@@ -21,6 +21,12 @@ class DbUtils {
     isar.writeTxnSync<int>(() => isar.suppliers.putSync(supplier));
   }
 
+  Stream<List<Item>> listenItems() async* {
+    final isar = await db;
+
+    yield* isar.items.where().watch(fireImmediately: true);
+  }
+
   Stream<List<Supplier>> listenSuppliers() async* {
     final isar = await db;
 
