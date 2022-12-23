@@ -7,13 +7,18 @@ import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/utils/add_item_utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AddItemPage extends HookConsumerWidget {
+class AddItemPage extends StatefulHookConsumerWidget {
   static const routeName = '/addItem';
 
   const AddItemPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  AddItemPageState createState() => AddItemPageState();
+}
+
+class AddItemPageState extends ConsumerState<AddItemPage> {
+  @override
+  Widget build(BuildContext context) {
     final pageController = usePageController();
     final nameController = useTextEditingController();
     final priceController = useTextEditingController();
@@ -49,11 +54,11 @@ class AddItemPage extends HookConsumerWidget {
           _ContainerForColumn(
             children: [
               if (itemType.value == ItemType.none)
-                _buildTitle(context, 'Select an item type'),
+                _buildTitle('Select an item type'),
               if (itemType.value == ItemType.goods)
-                _buildTitle(context, '1/6 Select an item type'),
+                _buildTitle('1/6 Select an item type'),
               if (itemType.value == ItemType.services)
-                _buildTitle(context, '1/4 Select an item type'),
+                _buildTitle('1/4 Select an item type'),
               const SizedBox(height: 8.0),
               RadioListTile<ItemType>(
                 value: ItemType.goods,
@@ -74,11 +79,10 @@ class AddItemPage extends HookConsumerWidget {
                 title: const Text('Services'),
               ),
               const SizedBox(height: 8.0),
-              _buildCaption(context,
+              _buildCaption(
                   AppLocalizations.of(context)!.goodsOrServicesCaption),
               const SizedBox(height: 8.0),
               _buildRowOfButton(
-                context,
                 false,
                 null,
                 itemType.value == ItemType.none
@@ -91,14 +95,13 @@ class AddItemPage extends HookConsumerWidget {
           _ContainerForColumn(
             children: [
               if (itemType.value == ItemType.goods)
-                _buildTitle(
-                    context, '2/6 Type the item name and stock quantity'),
+                _buildTitle('2/6 Type the item name and stock quantity'),
               if (itemType.value == ItemType.services)
-                _buildTitle(context, '2/4 Type the item name'),
+                _buildTitle('2/4 Type the item name'),
               const SizedBox(height: 8.0),
               TextFormField(
                 controller: nameController,
-                style: _getTextFieldStyle(context),
+                style: _getTextFieldStyle(),
                 decoration: InputDecoration(
                   labelText: 'Item name',
                   hintText: itemType.value == ItemType.goods
@@ -119,7 +122,7 @@ class AddItemPage extends HookConsumerWidget {
                     labelText: 'Stock quantity',
                     hintText: '0',
                   ),
-                  style: _getTextFieldStyle(context),
+                  style: _getTextFieldStyle(),
                   keyboardType: TextInputType.number,
                   onTap: () => focus.value = true,
                   onChanged: (text) => stock.value = text,
@@ -127,7 +130,6 @@ class AddItemPage extends HookConsumerWidget {
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButton(
-                context,
                 true,
                 () {
                   if (focus.value == true) {
@@ -170,23 +172,22 @@ class AddItemPage extends HookConsumerWidget {
           _ContainerForColumn(
             children: [
               if (itemType.value == ItemType.goods)
-                _buildTitle(context, '3/6 Enter a selling price per item'),
+                _buildTitle('3/6 Enter a selling price per item'),
               if (itemType.value == ItemType.services)
-                _buildTitle(context, '3/4 Enter a selling price per item'),
+                _buildTitle('3/4 Enter a selling price per item'),
               const SizedBox(height: 8.0),
               TextFormField(
                 controller: priceController,
                 decoration: const InputDecoration(
                   hintText: '0',
                 ),
-                style: _getTextFieldStyle(context),
+                style: _getTextFieldStyle(),
                 keyboardType: TextInputType.number,
                 onTap: () => focus.value = true,
                 onChanged: (text) => sellingPrice.value = text,
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButton(
-                context,
                 true,
                 () {
                   if (focus.value == true) {
@@ -215,7 +216,7 @@ class AddItemPage extends HookConsumerWidget {
           if (itemType.value == ItemType.goods)
             _ContainerForColumn(
               children: [
-                _buildTitle(context, '4/6 Enter wholesale price details'),
+                _buildTitle('4/6 Enter wholesale price details'),
                 const SizedBox(height: 8.0),
                 TextFormField(
                   controller: wholesalePriceController,
@@ -223,7 +224,7 @@ class AddItemPage extends HookConsumerWidget {
                     hintText: '0',
                     labelText: 'Wholesale price',
                   ),
-                  style: _getTextFieldStyle(context),
+                  style: _getTextFieldStyle(),
                   keyboardType: TextInputType.number,
                   onTap: () => focus.value = true,
                   onChanged: (text) => wholesalePrice.value = text,
@@ -234,7 +235,7 @@ class AddItemPage extends HookConsumerWidget {
                     Flexible(
                       child: TextFormField(
                         controller: maxController,
-                        style: _getTextFieldStyle(context),
+                        style: _getTextFieldStyle(),
                         decoration: const InputDecoration(
                           labelText: 'Max',
                           hintText: '0',
@@ -248,7 +249,7 @@ class AddItemPage extends HookConsumerWidget {
                     Flexible(
                       child: TextFormField(
                         controller: minController,
-                        style: _getTextFieldStyle(context),
+                        style: _getTextFieldStyle(),
                         decoration: const InputDecoration(
                           labelText: 'Min',
                           hintText: '0',
@@ -261,11 +262,10 @@ class AddItemPage extends HookConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 8.0),
-                _buildCaption(context,
+                _buildCaption(
                     AppLocalizations.of(context)!.wholesalePriceCaption),
                 const SizedBox(height: 8.0),
                 _buildRowOfButton(
-                  context,
                   true,
                   () {
                     if (focus.value == true) {
@@ -299,8 +299,7 @@ class AddItemPage extends HookConsumerWidget {
           if (itemType.value == ItemType.goods)
             _ContainerForColumn(
               children: [
-                _buildTitle(
-                    context, '5/6 Enter supplier name and initial price'),
+                _buildTitle('5/6 Enter supplier name and initial price'),
                 const SizedBox(height: 8.0),
                 TextFormField(
                   controller: supplierNameController,
@@ -308,7 +307,7 @@ class AddItemPage extends HookConsumerWidget {
                     hintText: 'Father Grocery Store',
                     labelText: 'Name (Optional)',
                   ),
-                  style: _getTextFieldStyle(context),
+                  style: _getTextFieldStyle(),
                   keyboardType: TextInputType.name,
                   onChanged: (text) => supplierName.value = text,
                 ),
@@ -319,14 +318,13 @@ class AddItemPage extends HookConsumerWidget {
                     labelText: 'Initial price (Optional)',
                     hintText: '0',
                   ),
-                  style: _getTextFieldStyle(context),
+                  style: _getTextFieldStyle(),
                   keyboardType: TextInputType.number,
                   onTap: () => focus.value = true,
                   onChanged: (text) => initialPrice.value = text,
                 ),
                 const SizedBox(height: 8.0),
                 _buildRowOfButton(
-                  context,
                   true,
                   () {
                     if (focus.value == true) {
@@ -353,9 +351,9 @@ class AddItemPage extends HookConsumerWidget {
           _ContainerForColumn(
             children: [
               if (itemType.value == ItemType.goods)
-                _buildTitle(context, '6/6 Review new item'),
+                _buildTitle('6/6 Review new item'),
               if (itemType.value == ItemType.services)
-                _buildTitle(context, '4/4 Review new item'),
+                _buildTitle('4/4 Review new item'),
               const SizedBox(height: 8.0),
               _ContainerForReview(
                 title: name.value,
@@ -379,7 +377,6 @@ class AddItemPage extends HookConsumerWidget {
               ),
               const SizedBox(height: 8.0),
               _buildRowOfButtonForAdd(
-                context,
                 () => _prevPage(pageController),
                 null,
               ),
@@ -409,11 +406,9 @@ class AddItemPage extends HookConsumerWidget {
     }
   }
 
-  Widget _buildTitle(BuildContext context, String text) =>
-      Text(text, style: _getTitleTextStyle(context));
+  Widget _buildTitle(String text) => Text(text, style: _getTitleTextStyle());
 
   Widget _buildRowOfButton(
-    BuildContext context,
     bool enablePrev,
     VoidCallback? onPressedPrev,
     VoidCallback? onPressedNext,
@@ -436,7 +431,6 @@ class AddItemPage extends HookConsumerWidget {
         ],
       );
   Widget _buildRowOfButtonForAdd(
-    BuildContext context,
     VoidCallback? onPressedPrev,
     VoidCallback? onPressedAdd,
   ) =>
@@ -454,15 +448,15 @@ class AddItemPage extends HookConsumerWidget {
         ],
       );
 
-  TextStyle _getTitleTextStyle(BuildContext context) =>
+  TextStyle _getTitleTextStyle() =>
       Theme.of(context).textTheme.subtitle2!.copyWith(color: Palette.slateGray);
 
-  TextStyle _getTextFieldStyle(BuildContext context) => Theme.of(context)
+  TextStyle _getTextFieldStyle() => Theme.of(context)
       .textTheme
       .titleLarge!
       .copyWith(color: Palette.eerieBlack);
 
-  Text _buildCaption(BuildContext context, String caption) =>
+  Text _buildCaption(String caption) =>
       Text(caption, style: Theme.of(context).textTheme.caption);
 }
 
