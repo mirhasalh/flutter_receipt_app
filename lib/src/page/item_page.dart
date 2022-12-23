@@ -1,17 +1,28 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_receipt_app/src/common.dart';
-import 'package:flutter_receipt_app/src/db/item.dart';
+import 'package:flutter_receipt_app/src/db/dbs.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
+import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/item_provider.dart';
+import 'package:flutter_receipt_app/src/shared/shared.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ItemPage extends ConsumerWidget {
+class ItemPage extends StatefulHookConsumerWidget {
   static const routeName = '/item';
 
   const ItemPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ItemPageState createState() => ItemPageState();
+}
+
+class ItemPageState extends ConsumerState<ItemPage> {
+  Set<int> selectedIndex = {};
+
+  @override
+  Widget build(BuildContext context) {
     AsyncValue<List<Item>> items = ref.watch(itemProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.allItems),
@@ -24,39 +35,35 @@ class ItemPage extends ConsumerWidget {
             color: Colors.teal,
             icon: const Icon(Icons.add),
           ),
+          Visibility(
+            visible: selectedIndex.isEmpty,
+            replacement: IconButton(
+              tooltip: 'Delete selected data',
+              onPressed: () => _onPressedDeleteItems(),
+              icon: const Icon(Icons.delete, color: Colors.teal),
+            ),
+            child: const SizedBox(),
+          ),
         ],
       ),
       body: items.when(
         data: (data) {
           if (data.isEmpty) {
-            return Center(
-              child: Text(
-                'No data',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle2!
-                    .copyWith(color: Colors.black54),
-              ),
-            );
+            return const NoData();
           }
 
           return ListView.separated(
-            // itemBuilder: (context, index) => ListTile(
-            //   onTap: () => _onTapSupplierList(data[index].id),
-            //   onLongPress: () => _onLongPressedSupplierList(data[index].id),
-            //   tileColor: selectedIndex.contains(data[index].id)
-            //       ? Palette.azure
-            //       : Colors.white,
-            //   title: Text(data[index].supplierName!),
-            //   trailing: selectedIndex.contains(data[index].id)
-            //       ? const Icon(Icons.check_box, color: Colors.teal)
-            //       : const SizedBox.shrink(),
-            // ),
             itemBuilder: (context, index) => ListTile(
-              onTap: () {},
-              tileColor: Colors.white,
+              onLongPress: () => _onLongPressedItemList(data[index].id),
+              onTap: () => _onTapItemList(data[index].id),
+              tileColor: selectedIndex.contains(data[index].id)
+                  ? Palette.azure
+                  : Colors.white,
               title: Text(data[index].name!),
               subtitle: Text('${data[index].sellingPrice}'),
+              trailing: selectedIndex.contains(data[index].id)
+                  ? const Icon(Icons.check_box, color: Colors.teal)
+                  : const SizedBox.shrink(),
             ),
             separatorBuilder: (context, index) => const Divider(height: 0.0),
             itemCount: data.length,
@@ -67,5 +74,34 @@ class ItemPage extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
+  }
+
+  void _onLongPressedItemList(int index) {
+    if (selectedIndex.any((i) => i == index)) {
+      return;
+    }
+
+    HapticFeedback.lightImpact();
+
+    setState(() {
+      selectedIndex.add(index);
+    });
+  }
+
+  void _onTapItemList(int index) {
+    if (selectedIndex.any((i) => i == index)) {
+      setState(() => selectedIndex.remove(index));
+      return;
+    }
+
+    if (selectedIndex.isNotEmpty) {
+      setState(() => selectedIndex.add(index));
+    }
+  }
+
+  void _onPressedDeleteItems() {
+    DbUtils().deleteItems(selectedIndex).then((_) {
+      setState(() => selectedIndex.clear());
+    });
   }
 }

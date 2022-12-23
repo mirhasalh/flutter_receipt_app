@@ -37,7 +37,8 @@ class SupplierListState extends ConsumerState<SupplierPage> {
           Visibility(
             visible: selectedIndex.isEmpty,
             replacement: IconButton(
-              onPressed: () => _onPressedDelete(),
+              tooltip: 'Delete selected data',
+              onPressed: () => _onPressedDeleteSuppliers(),
               icon: const Icon(Icons.delete, color: Colors.teal),
             ),
             child: const SizedBox.shrink(),
@@ -47,7 +48,7 @@ class SupplierListState extends ConsumerState<SupplierPage> {
       body: suppliers.when(
         data: (data) {
           if (data.isEmpty) {
-            return _buildEmptySupplier();
+            return const NoData();
           }
 
           return ListView.separated(
@@ -146,16 +147,6 @@ class SupplierListState extends ConsumerState<SupplierPage> {
     Navigator.of(context).pop();
   }
 
-  Widget _buildEmptySupplier() => Center(
-        child: Text(
-          'No data',
-          style: Theme.of(context)
-              .textTheme
-              .subtitle2!
-              .copyWith(color: Colors.black54),
-        ),
-      );
-
   void _onLongPressedSupplierList(int index) {
     if (selectedIndex.any((i) => i == index)) {
       return;
@@ -179,7 +170,7 @@ class SupplierListState extends ConsumerState<SupplierPage> {
     }
   }
 
-  void _onPressedDelete() {
+  void _onPressedDeleteSuppliers() {
     DbUtils()
         .deleteSuppliers(selectedIndex)
         .then((_) => setState(() => selectedIndex.clear()));

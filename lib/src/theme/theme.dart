@@ -36,4 +36,8 @@ ThemeData kTheme = ThemeData(
     bodyText1: TextStyle(color: Palette.eerieBlack),
     bodyText2: TextStyle(color: Palette.eerieBlack),
   ),
+  dividerTheme: const DividerThemeData(
+    color: Palette.cultured,
+    thickness: 0.6,
+  ),
 );
