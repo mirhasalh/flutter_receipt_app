@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/sizes.dart';
@@ -84,7 +85,7 @@ class SupplierListState extends ConsumerState<SupplierPage> {
       isDismissible: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(kBottomSheetBorderRadius),
+          top: kBottomSheetRadius,
         ),
       ),
       context: context,

@@ -1,1 +1,3 @@
-const double kBottomSheetBorderRadius = 12.0;
+import 'package:flutter/material.dart';
+
+const kBottomSheetRadius = Radius.circular(12.0);

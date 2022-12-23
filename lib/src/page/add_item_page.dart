@@ -1,9 +1,11 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/duration.dart';
+import 'package:flutter_receipt_app/src/constant/sizes.dart';
 import 'package:flutter_receipt_app/src/db/supplier.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
+import 'package:flutter_receipt_app/src/shared/drag_handle.dart';
 import 'package:flutter_receipt_app/src/utils/add_item_utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,6 +19,9 @@ class AddItemPage extends StatefulHookConsumerWidget {
 }
 
 class AddItemPageState extends ConsumerState<AddItemPage> {
+  var supplierNameController = TextEditingController();
+  String supplierName = '';
+
   @override
   Widget build(BuildContext context) {
     final pageController = usePageController();
@@ -26,7 +31,6 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
     final wholesalePriceController = useTextEditingController();
     final maxController = useTextEditingController();
     final minController = useTextEditingController();
-    final supplierNameController = useTextEditingController();
     final initialPriceController = useTextEditingController();
     final itemType = useState<ItemType>(ItemType.none);
     final type = useState<int>(0);
@@ -36,7 +40,6 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
     final wholesalePrice = useState<String>('');
     final max = useState<String>('');
     final min = useState<String>('');
-    final supplierName = useState<String>('');
     final initialPrice = useState<String>('');
     final focus = useState<bool>(false);
     AsyncValue<List<Supplier>> suppliers = ref.watch(suppliersProvider);
@@ -301,15 +304,29 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
               children: [
                 _buildTitle('5/6 Enter supplier name and initial price'),
                 const SizedBox(height: 8.0),
-                TextFormField(
+                // TextFormField(
+                //   controller: supplierNameController,
+                //   decoration: const InputDecoration(
+                //     hintText: 'Father Grocery Store',
+                //     labelText: 'Name (Optional)',
+                //   ),
+                //   style: _getTextFieldStyle(),
+                //   keyboardType: TextInputType.name,
+                //   onChanged: (text) => supplierName.value = text,
+                //   onTap: () => _showSupplierBottomSheet(
+                //     suppliers,
+                //     (text) => supplierNameController.text = text,
+                //   ),
+                // ),
+                TextField(
+                  readOnly: true,
                   controller: supplierNameController,
                   decoration: const InputDecoration(
-                    hintText: 'Father Grocery Store',
-                    labelText: 'Name (Optional)',
+                    helperText: 'Father Grocery Store',
+                    labelText: 'Supplier name (Optional)',
                   ),
                   style: _getTextFieldStyle(),
-                  keyboardType: TextInputType.name,
-                  onChanged: (text) => supplierName.value = text,
+                  onTap: () => _showSupplierBottomSheet(suppliers),
                 ),
                 const SizedBox(height: 8.0),
                 TextFormField(
@@ -371,7 +388,7 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                 wholesalePrice: wholesalePrice.value,
                 max: max.value,
                 min: min.value,
-                supplierName: supplierName.value,
+                supplierName: supplierName,
                 initialPrice: initialPrice.value,
                 itemType: itemType.value,
               ),
@@ -458,6 +475,65 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
 
   Text _buildCaption(String caption) =>
       Text(caption, style: Theme.of(context).textTheme.caption);
+
+  void _showSupplierBottomSheet(AsyncValue<List<Supplier>> streamSupplier) =>
+      showModalBottomSheet(
+        clipBehavior: Clip.antiAlias,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: kBottomSheetRadius),
+        ),
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) => DraggableScrollableSheet(
+          initialChildSize: 0.9,
+          minChildSize: 0.5,
+          maxChildSize: 1.0,
+          builder: (_, scrollController) => Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: kBottomSheetRadius),
+            ),
+            child: Column(
+              children: [
+                const DragHandle(),
+                streamSupplier.when(
+                  data: (data) {
+                    if (data.isEmpty) {
+                      return const Text('No data');
+                    }
+
+                    return Expanded(
+                      child: ListView.separated(
+                        controller: scrollController,
+                        padding: const EdgeInsets.only(top: 12.0),
+                        itemBuilder: (context, index) => ListTile(
+                          onTap: () {
+                            setState(() {
+                              supplierNameController.text =
+                                  data[index].supplierName!;
+                              supplierName = data[index].supplierName!;
+                            });
+
+                            Navigator.of(context).pop();
+                          },
+                          tileColor: Colors.white,
+                          title: Text(data[index].supplierName!),
+                        ),
+                        separatorBuilder: (context, index) =>
+                            const Divider(height: 0.0),
+                        itemCount: data.length,
+                      ),
+                    );
+                  },
+                  error: (error, stackTrace) => const SizedBox.shrink(),
+                  loading: () => const SizedBox.shrink(),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 }
 
 class _ContainerForColumn extends StatelessWidget {
