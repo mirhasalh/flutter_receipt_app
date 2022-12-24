@@ -25,6 +25,14 @@ class SettingsPage extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.languages),
             subtitle: Text(AppLocalizations.of(context)!.languageSubtitle),
           ),
+          const Divider(height: 0.0),
+          ListTile(
+            onTap: () {},
+            tileColor: Colors.white,
+            leading: const Icon(Icons.currency_exchange),
+            title: const Text('Currency'),
+            subtitle: const Text('Based on location'),
+          ),
         ],
       ),
     );
