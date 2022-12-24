@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_receipt_app/src/assets/svgs.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
-import 'package:flutter_receipt_app/src/palette.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AuthPage extends StatefulWidget {
   static const routeName = '/';
@@ -35,21 +32,7 @@ class _AuthPageState extends State<AuthPage> {
               'Version 0.0.0 (0)',
               style: Theme.of(context).textTheme.caption,
             ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Palette.naplesYellow,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Palette.maximumYellowRed,
-                  width: 2.5,
-                ),
-              ),
-              child: SvgPicture.asset(
-                Svgs.icon,
-                width: 38.0,
-              ),
-            ),
+            const Text('Authenticating...'),
             const CircularProgressIndicator(),
           ],
         ),
