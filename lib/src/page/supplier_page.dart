@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_receipt_app/src/assets/fonts.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/sizes.dart';
 import 'package:flutter_receipt_app/src/db/dbs.dart';
@@ -112,6 +113,10 @@ class SupplierListState extends ConsumerState<SupplierPage> {
                   autofocus: true,
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.name,
+                  ),
+                  style: const TextStyle(
+                    color: Palette.eerieBlack,
+                    fontFamily: Fonts.courierPrime,
                   ),
                 ),
                 const SizedBox(height: 8.0),

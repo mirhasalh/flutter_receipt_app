@@ -40,4 +40,7 @@ ThemeData kTheme = ThemeData(
     color: Palette.cultured,
     thickness: 0.6,
   ),
+  inputDecorationTheme: const InputDecorationTheme(
+    hintStyle: TextStyle(fontFamily: Fonts.courierPrime),
+  ),
 );

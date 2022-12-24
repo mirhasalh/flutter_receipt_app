@@ -1,4 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_receipt_app/src/assets/fonts.dart';
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/constant/duration.dart';
 import 'package:flutter_receipt_app/src/constant/sizes.dart';
@@ -496,7 +497,7 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
   TextStyle _getTextFieldStyle() => Theme.of(context)
       .textTheme
       .titleLarge!
-      .copyWith(color: Palette.eerieBlack);
+      .copyWith(color: Palette.eerieBlack, fontFamily: Fonts.courierPrime);
 
   Text _buildCaption(String caption) =>
       Text(caption, style: Theme.of(context).textTheme.caption);
