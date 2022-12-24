@@ -99,6 +99,12 @@ flutter:
           weight: 500
         - asset: fonts/Inter-Light.ttf
           weight: 300
+    - family: Courier Prime
+      fonts:
+        - asset: fonts/CourierPrime-Regular.ttf
+    - family: Sacramento
+      fonts:
+        - asset: fonts/Sacramento-Regular.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
