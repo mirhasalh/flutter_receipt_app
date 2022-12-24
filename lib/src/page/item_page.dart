@@ -55,7 +55,7 @@ class ItemPageState extends ConsumerState<ItemPage> {
           return ListView.separated(
             itemBuilder: (context, index) => ListTile(
               onLongPress: () => _onLongPressedItemList(data[index].id),
-              onTap: () => _onTapItemList(data[index].id),
+              onTap: () => _onTapItemList(data[index].id, data[index]),
               tileColor: selectedIndex.contains(data[index].id)
                   ? Palette.azure
                   : Colors.white,
@@ -88,7 +88,7 @@ class ItemPageState extends ConsumerState<ItemPage> {
     });
   }
 
-  void _onTapItemList(int index) {
+  void _onTapItemList(int index, Item item) {
     if (selectedIndex.any((i) => i == index)) {
       setState(() => selectedIndex.remove(index));
       return;
@@ -96,7 +96,13 @@ class ItemPageState extends ConsumerState<ItemPage> {
 
     if (selectedIndex.isNotEmpty) {
       setState(() => selectedIndex.add(index));
+      return;
     }
+
+    Navigator.of(context).pushNamed(
+      ItemDetailsPage.routeName,
+      arguments: ItemDetailsArgs(item),
+    );
   }
 
   void _onPressedDeleteItems() {
