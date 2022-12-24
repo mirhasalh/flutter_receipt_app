@@ -8,6 +8,7 @@ import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/shared/drag_handle.dart';
 import 'package:flutter_receipt_app/src/utils/add_item_utils.dart';
+import 'package:flutter_receipt_app/src/utils/string_format.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AddItemPage extends StatefulHookConsumerWidget {
@@ -382,18 +383,32 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                     Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.slateGray,
                           fontWeight: FontWeight.bold,
+                          fontFamily: Fonts.courierPrime,
                         ),
-                subtitleTextStyle: Theme.of(context).textTheme.caption!,
+                subtitleTextStyle:
+                    Theme.of(context).textTheme.caption!.copyWith(
+                          fontFamily: Fonts.courierPrime,
+                        ),
                 valueTextStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: Palette.eerieBlack,
+                      fontFamily: Fonts.courierPrime,
                     ),
-                sellingPrice: sellingPrice.value,
+                sellingPrice: StringFormat().currency(
+                  'en_US',
+                  sellingPrice.value,
+                ),
                 stock: stock.value,
-                wholesalePrice: wholesalePrice.value,
+                wholesalePrice: StringFormat().currency(
+                  'en_US',
+                  wholesalePrice.value,
+                ),
                 max: max.value,
                 min: min.value,
                 supplierName: supplierName,
-                initialPrice: initialPrice.value,
+                initialPrice: StringFormat().currency(
+                  'en_US',
+                  initialPrice.value,
+                ),
                 itemType: itemType.value,
               ),
               const SizedBox(height: 8.0),
@@ -763,24 +778,28 @@ class _ContainerForReview extends StatelessWidget {
           ),
           const Divider(),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Supplier name',
                 style: subtitleTextStyle,
               ),
-              Text(
-                itemType == ItemType.goods
-                    ? supplierName == ''
-                        ? 'n/a'
-                        : supplierName
-                    : 'n/a',
-                style: itemType == ItemType.services
-                    ? Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Colors.black26)
-                    : valueTextStyle,
+              Expanded(
+                child: Text(
+                  itemType == ItemType.goods
+                      ? supplierName == ''
+                          ? 'n/a'
+                          : supplierName
+                      : 'n/a',
+                  style: itemType == ItemType.services
+                      ? Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: Colors.black26)
+                      : valueTextStyle,
+                  textAlign: TextAlign.end,
+                ),
               ),
             ],
           ),

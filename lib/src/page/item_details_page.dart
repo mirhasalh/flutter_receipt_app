@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_receipt_app/src/assets/fonts.dart';
 import 'package:flutter_receipt_app/src/db/item.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
+import 'package:intl/intl.dart';
 
 class ItemDetailsPage extends StatefulWidget {
   static const routeName = '/itemsDetails';
@@ -57,14 +57,12 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     '${widget.item.name}',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Item name',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -74,17 +72,16 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   style: ListTileStyle.list,
                   tileColor: Colors.white,
                   title: Text(
-                    '${widget.item.sellingPrice}',
+                    NumberFormat.currency(locale: 'en_US')
+                        .format(widget.item.sellingPrice),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Selling price',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -100,14 +97,12 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     '${widget.item.name}',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Item name',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -117,17 +112,16 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   style: ListTileStyle.list,
                   tileColor: Colors.white,
                   title: Text(
-                    '${widget.item.sellingPrice}',
+                    NumberFormat.currency(locale: 'en_US')
+                        .format(widget.item.sellingPrice),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Selling price',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -140,14 +134,12 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     '${widget.item.stock}',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Stock quantity',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -157,17 +149,16 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   style: ListTileStyle.list,
                   tileColor: Colors.white,
                   title: Text(
-                    '${widget.item.wholesalePrice}',
+                    NumberFormat.currency(locale: 'en_IS')
+                        .format(widget.item.wholesalePrice),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Wholesale price',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -180,14 +171,12 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     '${widget.item.max}',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Max',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -200,14 +189,12 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     '${widget.item.min}',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Min',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -225,7 +212,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                           'Maximum and minimum purchases at wholesale prices',
                           style: Theme.of(context).textTheme.caption!.copyWith(
                                 color: Palette.goldFusion,
-                                fontFamily: Fonts.courierPrime,
                               ),
                         ),
                       ),
@@ -241,14 +227,12 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     '${widget.item.supplierName}',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Supplier',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),
@@ -258,17 +242,16 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   style: ListTileStyle.list,
                   tileColor: Colors.white,
                   title: Text(
-                    '${widget.item.initialPrice}',
+                    NumberFormat.currency(locale: 'en_US')
+                        .format(widget.item.initialPrice),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                   subtitle: Text(
                     'Initial price',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Colors.black54,
-                          fontFamily: Fonts.courierPrime,
                         ),
                   ),
                 ),

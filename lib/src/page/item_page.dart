@@ -6,6 +6,7 @@ import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/item_provider.dart';
 import 'package:flutter_receipt_app/src/shared/shared.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class ItemPage extends StatefulHookConsumerWidget {
   static const routeName = '/item';
@@ -60,7 +61,8 @@ class ItemPageState extends ConsumerState<ItemPage> {
                   ? Palette.azure
                   : Colors.white,
               title: Text(data[index].name!),
-              subtitle: Text('${data[index].sellingPrice}'),
+              subtitle: Text(NumberFormat.currency(locale: 'en_US')
+                  .format(data[index].sellingPrice)),
               trailing: selectedIndex.contains(data[index].id)
                   ? const Icon(Icons.check_box, color: Colors.teal)
                   : const SizedBox.shrink(),
