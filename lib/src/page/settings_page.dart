@@ -31,7 +31,7 @@ class SettingsPage extends StatelessWidget {
             tileColor: Colors.white,
             leading: const Icon(Icons.currency_exchange),
             title: const Text('Currency'),
-            subtitle: const Text('Based on location'),
+            subtitle: const Text('Set currency symbol'),
           ),
         ],
       ),
