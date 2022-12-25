@@ -42,5 +42,6 @@ ThemeData kTheme = ThemeData(
   ),
   inputDecorationTheme: const InputDecorationTheme(
     hintStyle: TextStyle(fontFamily: Fonts.courierPrime),
+    labelStyle: TextStyle(fontFamily: Fonts.inter),
   ),
 );
