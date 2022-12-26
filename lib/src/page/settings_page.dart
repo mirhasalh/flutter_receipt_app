@@ -22,7 +22,7 @@ class SettingsPage extends StatelessWidget {
                   LanguageSettingsArgs('${Localizations.localeOf(context)}'),
             ),
             tileColor: Colors.white,
-            leading: const Icon(Icons.language_outlined),
+            leading: const Icon(Icons.language_outlined, color: Colors.teal),
             title: Text(AppLocalizations.of(context)!.languages),
             subtitle: Text(AppLocalizations.of(context)!.languageSubtitle),
           ),
@@ -37,7 +37,7 @@ class SettingsPage extends StatelessWidget {
                   );
             },
             tileColor: Colors.white,
-            leading: const Icon(Icons.currency_exchange),
+            leading: const Icon(Icons.attach_money, color: Colors.teal),
             title: const Text('Currency'),
             subtitle: const Text('Set currency symbol'),
           ),
