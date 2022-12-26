@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_receipt_app/src/db/item.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
+import 'package:flutter_receipt_app/src/utils/string_format.dart';
 import 'package:intl/intl.dart';
 
 class ItemDetailsPage extends StatefulWidget {
   static const routeName = '/itemsDetails';
 
-  const ItemDetailsPage({super.key, required this.item});
+  const ItemDetailsPage({super.key, required this.item, required this.locale});
 
   final Item item;
+  final String locale;
 
   @override
   State<ItemDetailsPage> createState() => _ItemDetailsPageState();
@@ -112,8 +114,8 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   style: ListTileStyle.list,
                   tileColor: Colors.white,
                   title: Text(
-                    NumberFormat.currency(locale: 'en_US')
-                        .format(widget.item.sellingPrice),
+                    StringFormat()
+                        .currency(widget.locale, '${widget.item.sellingPrice}'),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
                         ),
@@ -149,8 +151,8 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   style: ListTileStyle.list,
                   tileColor: Colors.white,
                   title: Text(
-                    NumberFormat.currency(locale: 'en_IS')
-                        .format(widget.item.wholesalePrice),
+                    StringFormat().currency(
+                        widget.locale, '${widget.item.wholesalePrice}'),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
                         ),
@@ -242,8 +244,8 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   style: ListTileStyle.list,
                   tileColor: Colors.white,
                   title: Text(
-                    NumberFormat.currency(locale: 'en_US')
-                        .format(widget.item.initialPrice),
+                    StringFormat()
+                        .currency(widget.locale, '${widget.item.initialPrice}'),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Palette.eerieBlack,
                         ),
@@ -262,7 +264,8 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
 }
 
 class ItemDetailsArgs {
-  ItemDetailsArgs(this.item);
+  ItemDetailsArgs(this.item, this.locale);
 
   final Item item;
+  final String locale;
 }

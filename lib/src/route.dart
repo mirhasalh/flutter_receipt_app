@@ -29,7 +29,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return TimedPageRoute(builder: (_) => const SupplierPage());
     case '/itemsDetails':
       final args = settings.arguments as ItemDetailsArgs;
-      return TimedPageRoute(builder: (_) => ItemDetailsPage(item: args.item));
+      return TimedPageRoute(
+        builder: (_) => ItemDetailsPage(item: args.item, locale: args.locale),
+      );
     case '/currencySettings':
       final args = settings.arguments as CurrencySettingsArgs;
       return TimedPageRoute(
