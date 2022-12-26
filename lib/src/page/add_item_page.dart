@@ -577,6 +577,10 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                         itemBuilder: (context, index) => SizedBox(
                           height: kToolbarHeight,
                           child: RawMaterialButton(
+                            constraints: const BoxConstraints(
+                              minHeight: 0.0,
+                              minWidth: 0.0,
+                            ),
                             onPressed: () {
                               setState(() {
                                 supplierNameController.text =
@@ -586,14 +590,20 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
 
                               Navigator.of(context).pop();
                             },
-                            child: Text(
-                              data[index].supplierName!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    color: Palette.eerieBlack,
-                                  ),
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 16.0),
+                                Text(
+                                  data[index].supplierName!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(
+                                        fontWeight: FontWeight.normal,
+                                        color: Palette.eerieBlack,
+                                      ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -690,6 +700,7 @@ class _ContainerForReview extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
