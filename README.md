@@ -2,6 +2,8 @@
 
 A Flutter project for receipt app.
 
+<img src="image/image.png" width="200">
+
 ## Getting Started
 
 This project is a Flutter application to create receipt or invoice and
