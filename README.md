@@ -4,13 +4,18 @@ A Flutter project for receipt app.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a Flutter application to create receipt or invoice and
+share it as an image.
 
-A few resources to get you started if this is your first Flutter project:
+A few resources for the most important packages:
+
+- [Riverpod: Reactive caching and data-binding framework](https://riverpod.dev/docs/getting_started/)
+- [Isar Database: Super fast cross-platform database for Flutter](https://isar.dev/tutorials/quickstart.html)
+
+A few resources for Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
+View the Flutter [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
