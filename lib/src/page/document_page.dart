@@ -32,7 +32,7 @@ class DocumentPage extends StatelessWidget {
             label: AppLocalizations.of(context)!.seeAllItems,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
             foregroundColor: Palette.eerieBlack,
-            child: const Icon(Icons.all_inbox_outlined),
+            child: const Icon(Icons.inventory_2_outlined),
           ),
           SpeedDialChild(
             onTap: () {
