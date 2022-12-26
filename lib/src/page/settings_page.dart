@@ -16,6 +16,14 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
+            onTap: () {},
+            title: const Text('Personalization'),
+            subtitle: const Text('Manage your store informations'),
+            tileColor: Colors.white,
+            leading: const Icon(Icons.storefront_outlined, color: Colors.teal),
+          ),
+          const Divider(height: 0.0),
+          ListTile(
             onTap: () => Navigator.of(context).pushNamed(
               LanguageSettingsPage.routeName,
               arguments:
