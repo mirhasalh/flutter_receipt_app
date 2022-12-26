@@ -6,6 +6,6 @@ class StringFormat {
       return NumberFormat.currency(locale: locale).format(0);
     }
 
-    return NumberFormat.currency(locale: locale).format(double.parse(text));
+    return NumberFormat.simpleCurrency(locale: locale).format(double.parse(text));
   }
 }

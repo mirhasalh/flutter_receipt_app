@@ -29,12 +29,14 @@ class ItemPageState extends ConsumerState<ItemPage> {
 
     return Scaffold(
       appBar: AppBar(
-        // title: Text(AppLocalizations.of(context)!.allItems),
-        title: Text('${widget.locale}${widget.symbol}'),
+        title: Text(AppLocalizations.of(context)!.allItems),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(AddItemPage.routeName);
+              Navigator.of(context).pushNamed(
+                AddItemPage.routeName,
+                arguments: AddItemPageArgs(widget.locale, widget.symbol),
+              );
             },
             tooltip: AppLocalizations.of(context)!.addItem,
             color: Colors.teal,

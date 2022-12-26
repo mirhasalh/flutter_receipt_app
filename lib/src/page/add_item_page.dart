@@ -14,7 +14,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class AddItemPage extends StatefulHookConsumerWidget {
   static const routeName = '/addItem';
 
-  const AddItemPage({super.key});
+  const AddItemPage({super.key, required this.locale, required this.symbol});
+
+  final String locale;
+  final String symbol;
 
   @override
   AddItemPageState createState() => AddItemPageState();
@@ -183,8 +186,9 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
               const SizedBox(height: 8.0),
               TextFormField(
                 controller: priceController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: '0',
+                  prefix: Text(widget.symbol),
                 ),
                 style: _getTextFieldStyle(),
                 keyboardType: TextInputType.number,
@@ -225,7 +229,8 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                 const SizedBox(height: 8.0),
                 TextFormField(
                   controller: wholesalePriceController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    prefix: Text(widget.symbol),
                     hintText: '0',
                     labelText: 'Wholesale price',
                   ),
@@ -333,7 +338,8 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                 const SizedBox(height: 8.0),
                 TextFormField(
                   controller: initialPriceController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    prefix: Text(widget.symbol),
                     labelText: 'Initial price (Optional)',
                     hintText: '0',
                   ),
@@ -394,19 +400,19 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                       fontFamily: Fonts.courierPrime,
                     ),
                 sellingPrice: StringFormat().currency(
-                  'en_US',
+                  widget.locale,
                   sellingPrice.value,
                 ),
                 stock: stock.value,
                 wholesalePrice: StringFormat().currency(
-                  'en_US',
+                  widget.locale,
                   wholesalePrice.value,
                 ),
                 max: max.value,
                 min: min.value,
                 supplierName: supplierName,
                 initialPrice: StringFormat().currency(
-                  'en_US',
+                  widget.locale,
                   initialPrice.value,
                 ),
                 itemType: itemType.value,
@@ -607,6 +613,13 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
       );
 }
 
+class AddItemPageArgs {
+  AddItemPageArgs(this.locale, this.symbol);
+
+  final String locale;
+  final String symbol;
+}
+
 class _ContainerForColumn extends StatelessWidget {
   const _ContainerForColumn({this.children = const <Widget>[]});
 
@@ -672,10 +685,7 @@ class _ContainerForReview extends StatelessWidget {
           width: 1.0,
         ),
       ),
-      padding: const EdgeInsets.symmetric(
-        vertical: 28.0,
-        horizontal: 18.0,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 28.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -690,149 +700,122 @@ class _ContainerForReview extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 18.0),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Selling price',
-                style: subtitleTextStyle,
-              ),
-              Text(
-                sellingPrice,
-                style: valueTextStyle,
-              ),
-            ],
+          ListTile(
+            subtitle: Text('Selling price', style: subtitleTextStyle),
+            title: Text(sellingPrice, style: valueTextStyle),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Stock quantity',
-                style: subtitleTextStyle,
-              ),
-              Text(
-                itemType == ItemType.services ? 'n/a' : stock,
-                style: itemType == ItemType.services
-                    ? Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Colors.black26)
-                    : valueTextStyle,
-              ),
-            ],
+          ListTile(
+            title: Text(
+              itemType == ItemType.services ? 'n/a' : stock,
+              style: itemType == ItemType.services
+                  ? Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.black26)
+                  : valueTextStyle,
+            ),
+            subtitle: Text('Stock quantity', style: subtitleTextStyle),
           ),
           const Divider(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Wholesale price',
-                style: subtitleTextStyle,
-              ),
-              Text(
-                itemType == ItemType.services ? 'n/a' : wholesalePrice,
-                style: itemType == ItemType.services
-                    ? Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Colors.black26)
-                    : valueTextStyle,
-              ),
-            ],
+          ListTile(
+            subtitle: Text('Wholesale price', style: subtitleTextStyle),
+            title: Text(
+              itemType == ItemType.services ? 'n/a' : wholesalePrice,
+              style: itemType == ItemType.services
+                  ? Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.black26)
+                  : valueTextStyle,
+            ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Max',
-                style: subtitleTextStyle,
-              ),
-              Text(
-                itemType == ItemType.services ? 'n/a' : max,
-                style: itemType == ItemType.services
-                    ? Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Colors.black26)
-                    : valueTextStyle,
-              ),
-            ],
+          ListTile(
+            subtitle: Text('Max', style: subtitleTextStyle),
+            title: Text(
+              itemType == ItemType.services ? 'n/a' : max,
+              style: itemType == ItemType.services
+                  ? Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.black26)
+                  : valueTextStyle,
+            ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Min',
-                style: subtitleTextStyle,
-              ),
-              Text(
-                itemType == ItemType.services ? 'n/a' : min,
-                style: itemType == ItemType.services
-                    ? Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Colors.black26)
-                    : valueTextStyle,
-              ),
-            ],
+          ListTile(
+            subtitle: Text('Min', style: subtitleTextStyle),
+            title: Text(
+              itemType == ItemType.services ? 'n/a' : min,
+              style: itemType == ItemType.services
+                  ? Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.black26)
+                  : valueTextStyle,
+            ),
           ),
           const Divider(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Supplier name',
-                style: subtitleTextStyle,
-              ),
-              Expanded(
-                child: Text(
-                  itemType == ItemType.goods
-                      ? supplierName == ''
-                          ? 'n/a'
-                          : supplierName
-                      : 'n/a',
-                  style: itemType == ItemType.services
-                      ? Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(color: Colors.black26)
-                      : valueTextStyle,
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ],
+          ListTile(
+            subtitle: Text('Supplier name', style: subtitleTextStyle),
+            title: Text(
+              itemType == ItemType.goods
+                  ? supplierName == ''
+                      ? 'n/a'
+                      : supplierName
+                  : 'n/a',
+              style: itemType == ItemType.services
+                  ? Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.black26)
+                  : valueTextStyle,
+            ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Initial price',
-                style: subtitleTextStyle,
-              ),
-              Text(
-                itemType == ItemType.goods
-                    ? initialPrice == ''
-                        ? 'n/a'
-                        : initialPrice
-                    : 'n/a',
-                style: itemType == ItemType.services
-                    ? Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Colors.black26)
-                    : valueTextStyle,
-              ),
-            ],
+          ListTile(
+            subtitle: Text('Initial price', style: subtitleTextStyle),
+            title: Text(
+              itemType == ItemType.goods
+                  ? initialPrice == ''
+                      ? 'n/a'
+                      : initialPrice
+                  : 'n/a',
+              style: itemType == ItemType.services
+                  ? Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.black26)
+                  : valueTextStyle,
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+// class CurrencyInputFormat extends TextInputFormatter {
+//   var localeAndSymbol = LocaleUtils().localeAndSymbol;
+
+//   @override
+//   TextEditingValue formatEditUpdate(
+//       TextEditingValue oldValue, TextEditingValue newValue) {
+//     late int index;
+
+//     index = PrefsUtils().getLocaleForCurrencyIndex() as int;
+
+//     if (newValue.selection.baseOffset == 0) {
+//       return newValue;
+//     }
+
+//     double value = double.parse(newValue.text);
+
+//     final formatter =
+//         NumberFormat.simpleCurrency(locale: localeAndSymbol[index]['locale']);
+
+//     String newText = formatter.format(value / 100);
+
+//     return newValue.copyWith(
+//       text: newText,
+//       selection: TextSelection.collapsed(offset: newText.length),
+//     );
+//   }
+// }

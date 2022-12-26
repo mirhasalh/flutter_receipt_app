@@ -21,7 +21,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (_) => ItemPage(locale: args.locale, symbol: args.symbol),
       );
     case '/addItem':
-      return TimedPageRoute(builder: (_) => const AddItemPage());
+      final args = settings.arguments as AddItemPageArgs;
+      return TimedPageRoute(
+          builder: (_) =>
+              AddItemPage(locale: args.locale, symbol: args.symbol));
     case '/supplier':
       return TimedPageRoute(builder: (_) => const SupplierPage());
     case '/itemsDetails':
