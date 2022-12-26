@@ -25,7 +25,7 @@ class DocumentPage extends StatelessWidget {
             label: AppLocalizations.of(context)!.createNewDoc,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
             foregroundColor: Palette.eerieBlack,
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.post_add_outlined),
           ),
           SpeedDialChild(
             onTap: () => NavUtils().toItemPage(context),
@@ -53,8 +53,8 @@ class DocumentPage extends StatelessWidget {
             child: const Icon(Icons.settings_outlined),
           ),
         ],
-        icon: Icons.add,
-        activeIcon: Icons.close,
+        icon: Icons.expand_less,
+        activeIcon: Icons.expand_more,
       ),
     );
   }
