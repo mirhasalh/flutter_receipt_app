@@ -1,21 +1,21 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-const kLocaleForCurrency = 'locale';
+const kLocaleForCurrencyIndex = 'locale';
 
 class PrefsUtils {
-  Future<String> getLocaleForCurrency() async {
+  Future<int> getLocaleForCurrencyIndex() async {
     final prefs = await SharedPreferences.getInstance();
 
-    if (prefs.getString(kLocaleForCurrency).isEmpty) {
-      return 'en_US';
+    if (prefs.getInt(kLocaleForCurrencyIndex) == null) {
+      prefs.setInt(kLocaleForCurrencyIndex, 0);
     }
 
-    return prefs.getString(kLocaleForCurrency);
+    return prefs.getInt(kLocaleForCurrencyIndex)!;
   }
 
-  Future<void> setLocaleForCurrency(String locale) async {
+  Future<void> setLocaleForCurrencyIndex(int index) async {
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.setString(kLocaleForCurrency, locale);
+    prefs.setInt(kLocaleForCurrencyIndex, index);
   }
 }

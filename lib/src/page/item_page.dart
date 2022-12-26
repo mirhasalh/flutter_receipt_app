@@ -5,14 +5,16 @@ import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/item_provider.dart';
 import 'package:flutter_receipt_app/src/shared/shared.dart';
-import 'package:flutter_receipt_app/src/utils/prefs_utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class ItemPage extends StatefulHookConsumerWidget {
   static const routeName = '/item';
 
-  const ItemPage({super.key});
+  const ItemPage({super.key, required this.locale, required this.symbol});
+
+  final String locale;
+  final String symbol;
 
   @override
   ItemPageState createState() => ItemPageState();
@@ -20,14 +22,6 @@ class ItemPage extends StatefulHookConsumerWidget {
 
 class ItemPageState extends ConsumerState<ItemPage> {
   Set<int> selectedIndex = {};
-  late String _locale;
-
-  @override
-  void initState() {
-    super.initState();
-
-    PrefsUtils().getLocaleForCurrency().then((locale) => _locale = locale);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +29,8 @@ class ItemPageState extends ConsumerState<ItemPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.allItems),
+        // title: Text(AppLocalizations.of(context)!.allItems),
+        title: Text('${widget.locale}${widget.symbol}'),
         actions: [
           IconButton(
             onPressed: () {
@@ -70,7 +65,8 @@ class ItemPageState extends ConsumerState<ItemPage> {
                   ? Palette.azure
                   : Colors.white,
               title: Text(data[index].name!),
-              subtitle: Text(NumberFormat.currency(locale: _locale)
+              subtitle: Text(NumberFormat.currency(
+                      locale: widget.locale, symbol: widget.symbol)
                   .format(data[index].sellingPrice)),
               trailing: selectedIndex.contains(data[index].id)
                   ? const Icon(Icons.check_box, color: Colors.teal)
@@ -121,4 +117,11 @@ class ItemPageState extends ConsumerState<ItemPage> {
       setState(() => selectedIndex.clear());
     });
   }
+}
+
+class ItemPageArgs {
+  ItemPageArgs(this.locale, this.symbol);
+
+  final String locale;
+  final String symbol;
 }

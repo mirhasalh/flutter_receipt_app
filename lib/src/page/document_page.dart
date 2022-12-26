@@ -1,6 +1,7 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
+import 'package:flutter_receipt_app/src/utils/nav_utils.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class DocumentPage extends StatelessWidget {
@@ -27,9 +28,7 @@ class DocumentPage extends StatelessWidget {
             child: const Icon(Icons.add),
           ),
           SpeedDialChild(
-            onTap: () {
-              Navigator.of(context).pushNamed(ItemPage.routeName);
-            },
+            onTap: () => NavUtils().toItemPage(context),
             label: AppLocalizations.of(context)!.seeAllItems,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
             foregroundColor: Palette.eerieBlack,

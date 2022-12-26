@@ -1,5 +1,6 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
+import 'package:flutter_receipt_app/src/utils/prefs_utils.dart';
 
 class SettingsPage extends StatelessWidget {
   static const routeName = '/settings';
@@ -27,7 +28,14 @@ class SettingsPage extends StatelessWidget {
           ),
           const Divider(height: 0.0),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              PrefsUtils().getLocaleForCurrencyIndex().then(
+                    (index) => Navigator.of(context).pushNamed(
+                      CurrencySettingsPage.routeName,
+                      arguments: CurrencySettingsArgs(index),
+                    ),
+                  );
+            },
             tileColor: Colors.white,
             leading: const Icon(Icons.currency_exchange),
             title: const Text('Currency'),

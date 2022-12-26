@@ -16,7 +16,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (_) => LanguageSettingsPage(locale: args.locale),
       );
     case '/item':
-      return TimedPageRoute(builder: (_) => const ItemPage());
+      final args = settings.arguments as ItemPageArgs;
+      return TimedPageRoute(
+        builder: (_) => ItemPage(locale: args.locale, symbol: args.symbol),
+      );
     case '/addItem':
       return TimedPageRoute(builder: (_) => const AddItemPage());
     case '/supplier':
@@ -24,6 +27,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/itemsDetails':
       final args = settings.arguments as ItemDetailsArgs;
       return TimedPageRoute(builder: (_) => ItemDetailsPage(item: args.item));
+    case '/currencySettings':
+      final args = settings.arguments as CurrencySettingsArgs;
+      return TimedPageRoute(
+        builder: (_) => CurrencySettingsPage(index: args.index),
+      );
     default:
       return TimedPageRoute(builder: (_) => const AuthPage());
   }

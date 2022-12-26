@@ -1,8 +1,7 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/provider/locale_provider.dart';
+import 'package:flutter_receipt_app/src/utils/locale_utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-enum Lang { en, id }
 
 class LanguageSettingsPage extends ConsumerStatefulWidget {
   static const routeName = '/languageSettings';
@@ -16,14 +15,14 @@ class LanguageSettingsPage extends ConsumerStatefulWidget {
 }
 
 class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
-  late Lang _lang;
+  late Locales _lang;
   final _tileColor = Colors.white;
   final _controlAffinity = ListTileControlAffinity.trailing;
 
   @override
   void initState() {
     super.initState();
-    _lang = _getLang(widget.locale);
+    _lang = LocaleUtils().getLang(widget.locale);
   }
 
   @override
@@ -35,7 +34,7 @@ class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
       body: ListView(
         children: [
           RadioListTile(
-            value: Lang.en,
+            value: Locales.en,
             groupValue: _lang,
             onChanged: (lang) {
               setState(() => _lang = lang!);
@@ -46,7 +45,7 @@ class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
             controlAffinity: _controlAffinity,
           ),
           RadioListTile(
-            value: Lang.id,
+            value: Locales.id,
             groupValue: _lang,
             onChanged: (lang) {
               setState(() => _lang = lang!);
@@ -59,17 +58,6 @@ class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
         ],
       ),
     );
-  }
-
-  Lang _getLang(String locale) {
-    switch (locale) {
-      case 'en_US':
-        return Lang.en;
-      case 'id_ID':
-        return Lang.id;
-      default:
-        return Lang.en;
-    }
   }
 }
 

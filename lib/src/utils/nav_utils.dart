@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_receipt_app/src/page/pages.dart';
+import 'package:flutter_receipt_app/src/utils/locale_utils.dart';
+import 'package:flutter_receipt_app/src/utils/prefs_utils.dart';
+
+// Put navigate here when its getting complex
+class NavUtils {
+  void toItemPage(BuildContext context) {
+    var localeAndSymbol = LocaleUtils().localeAndSymbol;
+
+    PrefsUtils().getLocaleForCurrencyIndex().then((i) {
+      var locale = localeAndSymbol[i]['locale']!;
+      var symbol = localeAndSymbol[i]['symbol']!;
+
+      Navigator.of(context).pushNamed(ItemPage.routeName,
+          arguments: ItemPageArgs(locale, symbol));
+    });
+  }
+}

@@ -381,7 +381,7 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                 title: name.value,
                 titleTextStyle:
                     Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Palette.slateGray,
+                          color: Palette.eerieBlack,
                           fontWeight: FontWeight.bold,
                           fontFamily: Fonts.courierPrime,
                         ),
@@ -691,6 +691,7 @@ class _ContainerForReview extends StatelessWidget {
           ),
           const SizedBox(height: 18.0),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -704,6 +705,7 @@ class _ContainerForReview extends StatelessWidget {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -723,6 +725,7 @@ class _ContainerForReview extends StatelessWidget {
           ),
           const Divider(),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -741,6 +744,7 @@ class _ContainerForReview extends StatelessWidget {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -759,6 +763,7 @@ class _ContainerForReview extends StatelessWidget {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -778,7 +783,7 @@ class _ContainerForReview extends StatelessWidget {
           ),
           const Divider(),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -804,6 +809,7 @@ class _ContainerForReview extends StatelessWidget {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
