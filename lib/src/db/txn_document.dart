@@ -1,4 +1,3 @@
-import 'package:flutter_receipt_app/src/db/item.dart';
 import 'package:isar/isar.dart';
 
 part 'txn_document.g.dart';
@@ -11,7 +10,7 @@ class TxnDocument {
   int? txnType;
   String? to;
   bool? paid;
-  var items = IsarLinks<Item>();
+  List<String>? items;
   double? total;
   double? payment;
   double? changes;
