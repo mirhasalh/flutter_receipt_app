@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            onTap: () {},
+            onTap: () => Navigator.of(context).pushNamed(InfoPage.routeName),
             title: const Text('Personalization'),
             subtitle: const Text('Manage your store informations'),
             tileColor: Colors.white,
