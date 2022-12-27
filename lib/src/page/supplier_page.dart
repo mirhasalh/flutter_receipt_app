@@ -6,6 +6,7 @@ import 'package:flutter_receipt_app/src/db/dbs.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/shared/shared.dart';
+import 'package:flutter_receipt_app/src/utils/snack_bar_utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SupplierPage extends ConsumerStatefulWidget {
@@ -147,7 +148,10 @@ class SupplierListState extends ConsumerState<SupplierPage> {
   void _onAddSupplier(String name) {
     var supplier = Supplier()..supplierName = name.trim();
 
-    DbUtils().addSupplier(supplier);
+    DbUtils().addSupplier(
+      supplier,
+      (_) => SnackBarUtils().text(context, 'Supplier name must be unique'),
+    );
 
     Navigator.of(context).pop();
   }

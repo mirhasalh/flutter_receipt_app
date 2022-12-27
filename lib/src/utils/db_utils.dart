@@ -15,10 +15,14 @@ class DbUtils {
     isar.writeTxnSync<int>(() => isar.items.putSync(item));
   }
 
-  Future<void> addSupplier(Supplier supplier) async {
-    final isar = await db;
+  Future<void> addSupplier(Supplier supplier, Function(String) onError) async {
+    try {
+      final isar = await db;
 
-    isar.writeTxnSync<int>(() => isar.suppliers.putSync(supplier));
+      isar.writeTxnSync<int>(() => isar.suppliers.putSync(supplier));
+    } catch (e) {
+      onError('$e');
+    }
   }
 
   Stream<List<Item>> listenItems() async* {
