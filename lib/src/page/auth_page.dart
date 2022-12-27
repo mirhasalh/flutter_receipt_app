@@ -52,6 +52,7 @@ class _AuthPageState extends State<AuthPage> {
               child: SvgPicture.asset(
                 Svgs.icon,
                 width: 40,
+                color: Colors.white,
               ),
             ),
             const CircularProgressIndicator(),
