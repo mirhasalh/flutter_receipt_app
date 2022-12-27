@@ -6,6 +6,7 @@ part 'item.g.dart';
 class Item {
   Id id = Isar.autoIncrement;
   int? type;
+  @Index(unique: true)
   String? name;
   double? sellingPrice;
   int? stock;

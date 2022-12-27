@@ -68,7 +68,21 @@ const ItemSchema = CollectionSchema(
   deserialize: _itemDeserialize,
   deserializeProp: _itemDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'name': IndexSchema(
+      id: 879695947855722453,
+      name: r'name',
+      unique: true,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'name',
+          type: IndexType.hash,
+          caseSensitive: true,
+        )
+      ],
+    )
+  },
   links: {},
   embeddedSchemas: {},
   getId: _itemGetId,
@@ -177,6 +191,60 @@ void _itemAttach(IsarCollection<dynamic> col, Id id, Item object) {
   object.id = id;
 }
 
+extension ItemByIndex on IsarCollection<Item> {
+  Future<Item?> getByName(String? name) {
+    return getByIndex(r'name', [name]);
+  }
+
+  Item? getByNameSync(String? name) {
+    return getByIndexSync(r'name', [name]);
+  }
+
+  Future<bool> deleteByName(String? name) {
+    return deleteByIndex(r'name', [name]);
+  }
+
+  bool deleteByNameSync(String? name) {
+    return deleteByIndexSync(r'name', [name]);
+  }
+
+  Future<List<Item?>> getAllByName(List<String?> nameValues) {
+    final values = nameValues.map((e) => [e]).toList();
+    return getAllByIndex(r'name', values);
+  }
+
+  List<Item?> getAllByNameSync(List<String?> nameValues) {
+    final values = nameValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'name', values);
+  }
+
+  Future<int> deleteAllByName(List<String?> nameValues) {
+    final values = nameValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'name', values);
+  }
+
+  int deleteAllByNameSync(List<String?> nameValues) {
+    final values = nameValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'name', values);
+  }
+
+  Future<Id> putByName(Item object) {
+    return putByIndex(r'name', object);
+  }
+
+  Id putByNameSync(Item object, {bool saveLinks = true}) {
+    return putByIndexSync(r'name', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllByName(List<Item> objects) {
+    return putAllByIndex(r'name', objects);
+  }
+
+  List<Id> putAllByNameSync(List<Item> objects, {bool saveLinks = true}) {
+    return putAllByIndexSync(r'name', objects, saveLinks: saveLinks);
+  }
+}
+
 extension ItemQueryWhereSort on QueryBuilder<Item, Item, QWhere> {
   QueryBuilder<Item, Item, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
@@ -248,6 +316,69 @@ extension ItemQueryWhere on QueryBuilder<Item, Item, QWhereClause> {
         upper: upperId,
         includeUpper: includeUpper,
       ));
+    });
+  }
+
+  QueryBuilder<Item, Item, QAfterWhereClause> nameIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'name',
+        value: [null],
+      ));
+    });
+  }
+
+  QueryBuilder<Item, Item, QAfterWhereClause> nameIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'name',
+        lower: [null],
+        includeLower: false,
+        upper: [],
+      ));
+    });
+  }
+
+  QueryBuilder<Item, Item, QAfterWhereClause> nameEqualTo(String? name) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'name',
+        value: [name],
+      ));
+    });
+  }
+
+  QueryBuilder<Item, Item, QAfterWhereClause> nameNotEqualTo(String? name) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'name',
+              lower: [],
+              upper: [name],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'name',
+              lower: [name],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'name',
+              lower: [name],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'name',
+              lower: [],
+              upper: [name],
+              includeUpper: false,
+            ));
+      }
     });
   }
 }
