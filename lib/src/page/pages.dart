@@ -1,3 +1,4 @@
+export 'package:flutter_receipt_app/src/page/add_doc_page.dart';
 export 'package:flutter_receipt_app/src/page/add_item_page.dart';
 export 'package:flutter_receipt_app/src/page/auth_page.dart';
 export 'package:flutter_receipt_app/src/page/currency_settings_page.dart';

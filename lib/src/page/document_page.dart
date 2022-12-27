@@ -21,7 +21,7 @@ class DocumentPage extends StatelessWidget {
         foregroundColor: Palette.eerieBlack,
         children: [
           SpeedDialChild(
-            onTap: () {},
+            onTap: () => Navigator.of(context).pushNamed(AddDocPage.routeName),
             label: AppLocalizations.of(context)!.createNewDoc,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
             foregroundColor: Palette.eerieBlack,
@@ -35,18 +35,16 @@ class DocumentPage extends StatelessWidget {
             child: const Icon(Icons.inventory_2_outlined),
           ),
           SpeedDialChild(
-            onTap: () {
-              Navigator.of(context).pushNamed(SupplierPage.routeName);
-            },
+            onTap: () =>
+                Navigator.of(context).pushNamed(SupplierPage.routeName),
             label: AppLocalizations.of(context)!.supplier,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
             foregroundColor: Palette.eerieBlack,
             child: const Icon(Icons.warehouse_outlined),
           ),
           SpeedDialChild(
-            onTap: () {
-              Navigator.of(context).pushNamed(SettingsPage.routeName);
-            },
+            onTap: () =>
+                Navigator.of(context).pushNamed(SettingsPage.routeName),
             label: AppLocalizations.of(context)!.settings,
             labelStyle: const TextStyle(color: Palette.eerieBlack),
             foregroundColor: Palette.eerieBlack,

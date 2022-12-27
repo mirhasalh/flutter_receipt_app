@@ -37,6 +37,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return TimedPageRoute(
         builder: (_) => CurrencySettingsPage(index: args.index),
       );
+    case '/addDoc':
+      return TimedPageRoute(builder: (_) => const AddDocPage());
     default:
       return TimedPageRoute(builder: (_) => const AuthPage());
   }
