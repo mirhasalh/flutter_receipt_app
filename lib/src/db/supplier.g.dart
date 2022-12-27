@@ -28,7 +28,21 @@ const SupplierSchema = CollectionSchema(
   deserialize: _supplierDeserialize,
   deserializeProp: _supplierDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'supplierName': IndexSchema(
+      id: -5059668524112742578,
+      name: r'supplierName',
+      unique: true,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'supplierName',
+          type: IndexType.hash,
+          caseSensitive: true,
+        )
+      ],
+    )
+  },
   links: {},
   embeddedSchemas: {},
   getId: _supplierGetId,
@@ -97,6 +111,62 @@ List<IsarLinkBase<dynamic>> _supplierGetLinks(Supplier object) {
 
 void _supplierAttach(IsarCollection<dynamic> col, Id id, Supplier object) {
   object.id = id;
+}
+
+extension SupplierByIndex on IsarCollection<Supplier> {
+  Future<Supplier?> getBySupplierName(String? supplierName) {
+    return getByIndex(r'supplierName', [supplierName]);
+  }
+
+  Supplier? getBySupplierNameSync(String? supplierName) {
+    return getByIndexSync(r'supplierName', [supplierName]);
+  }
+
+  Future<bool> deleteBySupplierName(String? supplierName) {
+    return deleteByIndex(r'supplierName', [supplierName]);
+  }
+
+  bool deleteBySupplierNameSync(String? supplierName) {
+    return deleteByIndexSync(r'supplierName', [supplierName]);
+  }
+
+  Future<List<Supplier?>> getAllBySupplierName(
+      List<String?> supplierNameValues) {
+    final values = supplierNameValues.map((e) => [e]).toList();
+    return getAllByIndex(r'supplierName', values);
+  }
+
+  List<Supplier?> getAllBySupplierNameSync(List<String?> supplierNameValues) {
+    final values = supplierNameValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'supplierName', values);
+  }
+
+  Future<int> deleteAllBySupplierName(List<String?> supplierNameValues) {
+    final values = supplierNameValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'supplierName', values);
+  }
+
+  int deleteAllBySupplierNameSync(List<String?> supplierNameValues) {
+    final values = supplierNameValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'supplierName', values);
+  }
+
+  Future<Id> putBySupplierName(Supplier object) {
+    return putByIndex(r'supplierName', object);
+  }
+
+  Id putBySupplierNameSync(Supplier object, {bool saveLinks = true}) {
+    return putByIndexSync(r'supplierName', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllBySupplierName(List<Supplier> objects) {
+    return putAllByIndex(r'supplierName', objects);
+  }
+
+  List<Id> putAllBySupplierNameSync(List<Supplier> objects,
+      {bool saveLinks = true}) {
+    return putAllByIndexSync(r'supplierName', objects, saveLinks: saveLinks);
+  }
 }
 
 extension SupplierQueryWhereSort on QueryBuilder<Supplier, Supplier, QWhere> {
@@ -170,6 +240,71 @@ extension SupplierQueryWhere on QueryBuilder<Supplier, Supplier, QWhereClause> {
         upper: upperId,
         includeUpper: includeUpper,
       ));
+    });
+  }
+
+  QueryBuilder<Supplier, Supplier, QAfterWhereClause> supplierNameIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'supplierName',
+        value: [null],
+      ));
+    });
+  }
+
+  QueryBuilder<Supplier, Supplier, QAfterWhereClause> supplierNameIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'supplierName',
+        lower: [null],
+        includeLower: false,
+        upper: [],
+      ));
+    });
+  }
+
+  QueryBuilder<Supplier, Supplier, QAfterWhereClause> supplierNameEqualTo(
+      String? supplierName) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'supplierName',
+        value: [supplierName],
+      ));
+    });
+  }
+
+  QueryBuilder<Supplier, Supplier, QAfterWhereClause> supplierNameNotEqualTo(
+      String? supplierName) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'supplierName',
+              lower: [],
+              upper: [supplierName],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'supplierName',
+              lower: [supplierName],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'supplierName',
+              lower: [supplierName],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'supplierName',
+              lower: [],
+              upper: [supplierName],
+              includeUpper: false,
+            ));
+      }
     });
   }
 }
