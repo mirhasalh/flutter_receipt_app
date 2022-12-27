@@ -2,7 +2,7 @@
 
 A Flutter project for receipt app.
 
-<img src="image/image.png" width="200">
+<img src="image/image.png" width="180">
 
 ## Getting Started
 
