@@ -8,6 +8,7 @@ import 'package:flutter_receipt_app/src/palette.dart';
 import 'package:flutter_receipt_app/src/provider/suppliers_provider.dart';
 import 'package:flutter_receipt_app/src/shared/drag_handle.dart';
 import 'package:flutter_receipt_app/src/utils/add_item_utils.dart';
+import 'package:flutter_receipt_app/src/utils/snack_bar_utils.dart';
 import 'package:flutter_receipt_app/src/utils/string_format.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -439,9 +440,13 @@ class AddItemPageState extends ConsumerState<AddItemPage> {
                       ? 0
                       : double.parse(initialPrice.value);
 
-                  DbUtils()
-                      .addItem(item)
-                      .then((_) => Navigator.of(context).pop());
+                  DbUtils().addItem(
+                    item,
+                    (_) => SnackBarUtils()
+                        .text(context, 'Item name must be unique'),
+                  );
+
+                  Navigator.of(context).pop();
                 },
               ),
               const SizedBox(height: 8.0),

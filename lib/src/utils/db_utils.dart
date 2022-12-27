@@ -9,10 +9,14 @@ class DbUtils {
     db = openDB();
   }
 
-  Future<void> addItem(Item item) async {
-    final isar = await db;
+  Future<void> addItem(Item item, Function(String) onError) async {
+    try {
+      final isar = await db;
 
-    isar.writeTxnSync<int>(() => isar.items.putSync(item));
+      isar.writeTxnSync<int>(() => isar.items.putSync(item));
+    } catch (e) {
+      onError('$e');
+    }
   }
 
   Future<void> addSupplier(Supplier supplier, Function(String) onError) async {
