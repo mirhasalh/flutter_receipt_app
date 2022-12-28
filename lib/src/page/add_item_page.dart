@@ -706,14 +706,13 @@ class _ContainerForReview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                style: titleTextStyle,
-              ),
-            ],
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              title,
+              style: titleTextStyle,
+              textAlign: TextAlign.center,
+            ),
           ),
           const SizedBox(height: 18.0),
           ListTile(

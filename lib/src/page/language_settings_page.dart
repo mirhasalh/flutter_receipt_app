@@ -44,6 +44,7 @@ class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
             tileColor: _tileColor,
             controlAffinity: _controlAffinity,
           ),
+          const Divider(height: 0.0),
           RadioListTile(
             value: Locales.id,
             groupValue: _lang,
