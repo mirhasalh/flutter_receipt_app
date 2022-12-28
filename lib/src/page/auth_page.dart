@@ -36,7 +36,7 @@ class _AuthPageState extends State<AuthPage> {
               style: Theme.of(context).textTheme.caption,
             ),
             Container(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
