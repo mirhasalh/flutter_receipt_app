@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Icon _getIcon(Settings settings) {
     switch (settings) {
       case Settings.language:
-        return const Icon(Icons.storefront_outlined, color: Colors.teal);
+        return const Icon(Icons.language, color: Colors.teal);
       case Settings.currency:
         return const Icon(Icons.attach_money, color: Colors.teal);
       case Settings.personalization:
