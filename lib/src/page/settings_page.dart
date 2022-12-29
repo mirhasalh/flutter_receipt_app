@@ -2,7 +2,7 @@ import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_receipt_app/src/utils/prefs_utils.dart';
 
-enum Settings { personalization, language, currency }
+enum Settings { personalization, language, currency, theme }
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings';
@@ -47,6 +47,8 @@ class _SettingsPageState extends State<SettingsPage> {
         return AppLocalizations.of(context)!.languages;
       case Settings.currency:
         return 'Currency';
+      case Settings.theme:
+        return 'Theme mode';
       default:
         return 'n/a';
     }
@@ -60,8 +62,21 @@ class _SettingsPageState extends State<SettingsPage> {
         return const Icon(Icons.attach_money, color: Colors.teal);
       case Settings.personalization:
         return const Icon(Icons.storefront_outlined, color: Colors.teal);
+      case Settings.theme:
+        return _getThemeIcon(MediaQuery.of(context).platformBrightness);
       default:
         return const Icon(Icons.close, color: Colors.teal);
+    }
+  }
+
+  Icon _getThemeIcon(Brightness brightness) {
+    switch (brightness) {
+      case Brightness.light:
+        return const Icon(Icons.light_mode_outlined, color: Colors.teal);
+      case Brightness.dark:
+        return const Icon(Icons.dark_mode_outlined, color: Colors.teal);
+      default:
+        return const Icon(Icons.light_mode_outlined, color: Colors.teal);
     }
   }
 
@@ -73,6 +88,8 @@ class _SettingsPageState extends State<SettingsPage> {
         return AppLocalizations.of(context)!.languageSubtitle;
       case Settings.currency:
         return 'Set currency symbol';
+      case Settings.theme:
+        return 'Set theme mode';
       default:
         return 'n/a';
     }
@@ -96,6 +113,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 arguments: CurrencySettingsArgs(index),
               ),
             );
+        return;
+      case Settings.theme:
+        Navigator.of(context).pushNamed(ThemeSettingsPage.routeName);
         return;
       default:
         return;

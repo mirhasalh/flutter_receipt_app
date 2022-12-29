@@ -9,3 +9,4 @@ export 'package:flutter_receipt_app/src/page/item_page.dart';
 export 'package:flutter_receipt_app/src/page/language_settings_page.dart';
 export 'package:flutter_receipt_app/src/page/settings_page.dart';
 export 'package:flutter_receipt_app/src/page/supplier_page.dart';
+export 'package:flutter_receipt_app/src/page/theme_settings_page.dart';

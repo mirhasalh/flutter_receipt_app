@@ -41,6 +41,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return TimedPageRoute(builder: (_) => const AddDocPage());
     case '/info':
       return TimedPageRoute(builder: (_) => const InfoPage());
+    case '/themeSettings':
+      return TimedPageRoute(builder: (_) => const ThemeSettingsPage());
     default:
       return TimedPageRoute(builder: (_) => const AuthPage());
   }
