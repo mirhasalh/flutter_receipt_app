@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_receipt_app/src/assets/svgs.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
@@ -18,13 +19,23 @@ class _AuthPageState extends State<AuthPage> {
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          systemNavigationBarColor: _getSystemNavigationBarColor(
+              MediaQuery.of(context).platformBrightness),
+        ),
+      );
+    });
+
     Future.delayed(const Duration(seconds: 3), () => _navToHome());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          _getBackgroundColor(MediaQuery.of(context).platformBrightness),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,5 +77,27 @@ class _AuthPageState extends State<AuthPage> {
     Navigator.of(context).popUntil((route) => route.isFirst);
 
     Navigator.of(context).pushReplacementNamed(DocumentPage.routeName);
+  }
+
+  Color _getSystemNavigationBarColor(Brightness brightness) {
+    switch (brightness) {
+      case Brightness.dark:
+        return Palette.charcoal;
+      case Brightness.light:
+        return Colors.white;
+      default:
+        return Colors.white;
+    }
+  }
+
+  Color _getBackgroundColor(Brightness brightness) {
+    switch (brightness) {
+      case Brightness.dark:
+        return Palette.charcoal;
+      case Brightness.light:
+        return Colors.white;
+      default:
+        return Colors.white;
+    }
   }
 }

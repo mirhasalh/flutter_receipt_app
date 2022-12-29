@@ -8,8 +8,8 @@ final kDarkTheme = ThemeData.dark(useMaterial3: false).copyWith(
       statusBarIconBrightness: Brightness.light,
       statusBarColor: Colors.transparent,
     ),
-    backgroundColor: Palette.gunmetal,
-    iconTheme: IconThemeData(color: Colors.white),
+    backgroundColor: Palette.charcoal,
+    iconTheme: IconThemeData(color: Palette.silverSand),
     titleTextStyle: TextStyle(
       color: Colors.white,
       fontSize: 20.0,
@@ -19,10 +19,11 @@ final kDarkTheme = ThemeData.dark(useMaterial3: false).copyWith(
   ),
   listTileTheme: const ListTileThemeData(
     textColor: Colors.white,
-    tileColor: Palette.raisinBlack,
+    tileColor: Palette.gunmetal,
   ),
   pageTransitionsTheme: const PageTransitionsTheme(builders: {
     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
     TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
   }),
+  scaffoldBackgroundColor: Palette.charlestonGreen,
 );
