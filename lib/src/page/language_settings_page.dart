@@ -31,34 +31,47 @@ class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.languageSettings),
       ),
-      body: ListView(
-        children: [
-          RadioListTile(
-            value: Locales.en,
+      body: ListView.separated(
+        itemBuilder: (context, index) {
+          final locale = Locales.values[index];
+          return RadioListTile(
+            title: Text(_getTitle(locale)),
+            value: locale,
             groupValue: _lang,
-            onChanged: (lang) {
-              setState(() => _lang = lang!);
-              ref.read(localeProvider).reset();
+            onChanged: (value) {
+              setState(() => _lang = value!);
+              _onChangeLang(_lang);
             },
-            title: const Text('English'),
-            tileColor: _tileColor,
             controlAffinity: _controlAffinity,
-          ),
-          const Divider(height: 0.0),
-          RadioListTile(
-            value: Locales.id,
-            groupValue: _lang,
-            onChanged: (lang) {
-              setState(() => _lang = lang!);
-              ref.read(localeProvider).setToId();
-            },
-            title: const Text('Indonesia'),
             tileColor: _tileColor,
-            controlAffinity: _controlAffinity,
-          ),
-        ],
+          );
+        },
+        separatorBuilder: (context, index) => const Divider(height: 0.0),
+        itemCount: Locales.values.length,
       ),
     );
+  }
+
+  String _getTitle(Locales locale) {
+    switch (locale) {
+      case Locales.en:
+        return AppLocalizations.of(context)!.english;
+      case Locales.id:
+        return AppLocalizations.of(context)!.indonesian;
+      default:
+        return 'n/a';
+    }
+  }
+
+  void _onChangeLang(Locales locale) {
+    switch (locale) {
+      case Locales.en:
+        return ref.read(localeProvider).reset();
+      case Locales.id:
+        return ref.read(localeProvider).setToId();
+      default:
+        return ref.read(localeProvider).reset();
+    }
   }
 }
 

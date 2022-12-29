@@ -66,5 +66,13 @@
     "wholesalePriceCaption": "Wholesale price is the price charged for a product as sold in bulk to large trade or distributor groups as opposed to what is charged to consumers",
     "@wholesalePriceCaption": {
       "description": "A caption for wholesale price text field"
+    },
+    "english": "English",
+    "@english": {
+      "description": "A text for english list tile"
+    },
+    "indonesian": "Indonesian",
+    "@indonesian": {
+      "description": "A text for english list tile"
     }
 }

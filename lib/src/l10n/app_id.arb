@@ -15,5 +15,7 @@
     "cancel": "Batalkan",
     "name": "Nama",
     "typeSupplierName": "Ketik nama pemasok",
-    "wholesalePriceCaption": "Harga grosir adalah harga yang dikenakan untuk suatu produk yang dijual dalam jumlah besar ke kelompok perdagangan atau distributor besar sebagai lawan dari apa yang dibebankan kepada konsumen"
+    "wholesalePriceCaption": "Harga grosir adalah harga yang dikenakan untuk suatu produk yang dijual dalam jumlah besar ke kelompok perdagangan atau distributor besar sebagai lawan dari apa yang dibebankan kepada konsumen",
+    "english": "Inggris",
+    "indonesian": "Indonesia"
 }
