@@ -30,40 +30,50 @@ class _CurrencySettingsPageState extends State<CurrencySettingsPage> {
       appBar: AppBar(
         title: const Text('Currency settings'),
       ),
-      body: ListView(
-        children: [
-          RadioListTile(
-            value: Currency.en,
+      body: ListView.separated(
+        itemBuilder: (context, index) {
+          final currency = Currency.values[index];
+          return RadioListTile(
+            value: currency,
             groupValue: _currency,
-            onChanged: (currency) {
-              setState(() {
-                _currency = currency!;
-              });
+            onChanged: (value) {
+              setState(() => _currency = value!);
 
-              PrefsUtils().setLocaleForCurrencyIndex(0);
+              _onChangeCurrency(_currency);
             },
-            tileColor: _tileColor,
-            title: const Text('USD'),
             controlAffinity: _controlAffinity,
-          ),
-          const Divider(height: 0.0),
-          RadioListTile(
-            value: Currency.id,
-            groupValue: _currency,
-            onChanged: (currency) {
-              setState(() {
-                _currency = currency!;
-              });
-
-              PrefsUtils().setLocaleForCurrencyIndex(1);
-            },
             tileColor: _tileColor,
-            title: const Text('IDR'),
-            controlAffinity: _controlAffinity,
-          ),
-        ],
+            title: Text(_getTitle(currency)),
+          );
+        },
+        separatorBuilder: (context, index) => const Divider(height: 0.0),
+        itemCount: Currency.values.length,
       ),
     );
+  }
+
+  void _onChangeCurrency(Currency currency) {
+    switch (currency) {
+      case Currency.en:
+        PrefsUtils().setLocaleForCurrencyIndex(0);
+        return;
+      case Currency.id:
+        PrefsUtils().setLocaleForCurrencyIndex(1);
+        return;
+      default:
+        return;
+    }
+  }
+
+  String _getTitle(Currency currency) {
+    switch (currency) {
+      case Currency.en:
+        return 'USD';
+      case Currency.id:
+        return 'IDR';
+      default:
+        return 'n/a';
+    }
   }
 }
 
