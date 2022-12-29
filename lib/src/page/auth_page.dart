@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_receipt_app/src/assets/svgs.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
 import 'package:flutter_receipt_app/src/palette.dart';
+import 'package:flutter_receipt_app/src/provider/theme_provider.dart';
+import 'package:flutter_receipt_app/src/utils/theme_settings_utils.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AuthPage extends StatefulWidget {
+class AuthPage extends ConsumerStatefulWidget {
   static const routeName = '/';
 
   const AuthPage({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  AuthPageState createState() => AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class AuthPageState extends ConsumerState<AuthPage> {
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          systemNavigationBarColor: _getSystemNavigationBarColor(
-              MediaQuery.of(context).platformBrightness),
-        ),
+      final themeMode = ref.watch(themeProvider).themeMode;
+
+      ThemeSettingsUtils().setSystemNavigationBarColor(
+        context: context,
+        themeMode: themeMode,
       );
     });
 
@@ -77,17 +79,6 @@ class _AuthPageState extends State<AuthPage> {
     Navigator.of(context).popUntil((route) => route.isFirst);
 
     Navigator.of(context).pushReplacementNamed(DocumentPage.routeName);
-  }
-
-  Color _getSystemNavigationBarColor(Brightness brightness) {
-    switch (brightness) {
-      case Brightness.dark:
-        return Palette.charcoal;
-      case Brightness.light:
-        return Colors.white;
-      default:
-        return Colors.white;
-    }
   }
 
   Color _getBackgroundColor(Brightness brightness) {
