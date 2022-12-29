@@ -16,7 +16,6 @@ class LanguageSettingsPage extends ConsumerStatefulWidget {
 
 class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
   late Locales _lang;
-  final _tileColor = Colors.white;
   final _controlAffinity = ListTileControlAffinity.trailing;
 
   @override
@@ -43,7 +42,6 @@ class LanguageSettingsState extends ConsumerState<LanguageSettingsPage> {
               _onChangeLang(_lang);
             },
             controlAffinity: _controlAffinity,
-            tileColor: _tileColor,
           );
         },
         separatorBuilder: (context, index) => const Divider(height: 0.0),

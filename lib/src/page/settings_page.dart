@@ -14,8 +14,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final _tileColor = Colors.white;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +26,6 @@ class _SettingsPageState extends State<SettingsPage> {
           return ListTile(
             onTap: () => _onTapSettings(settings),
             title: Text(_getTitle(settings)),
-            tileColor: _tileColor,
             leading: _getIcon(settings),
             subtitle: Text(_getSubtitle(settings)),
           );

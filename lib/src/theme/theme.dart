@@ -45,4 +45,8 @@ ThemeData kTheme = ThemeData(
     hintStyle: TextStyle(fontFamily: Fonts.courierPrime),
     labelStyle: TextStyle(fontFamily: Fonts.inter),
   ),
+  listTileTheme: const ListTileThemeData(
+    textColor: Palette.eerieBlack,
+    tileColor: Colors.white,
+  ),
 );

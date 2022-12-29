@@ -17,7 +17,6 @@ class ThemeSettingsPage extends StatelessWidget {
           return ListTile(
             title: Text(
                 '${theme.name[0].toUpperCase()}${theme.name.substring(1)}'),
-            tileColor: Colors.white,
           );
         },
         separatorBuilder: (context, index) => const Divider(height: 0.0),

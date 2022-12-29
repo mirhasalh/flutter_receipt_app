@@ -15,7 +15,6 @@ class CurrencySettingsPage extends StatefulWidget {
 
 class _CurrencySettingsPageState extends State<CurrencySettingsPage> {
   late Currency _currency;
-  late final _tileColor = Colors.white;
   final _controlAffinity = ListTileControlAffinity.trailing;
 
   @override
@@ -42,7 +41,6 @@ class _CurrencySettingsPageState extends State<CurrencySettingsPage> {
               _onChangeCurrency(_currency);
             },
             controlAffinity: _controlAffinity,
-            tileColor: _tileColor,
             title: Text(_getTitle(currency)),
           );
         },
