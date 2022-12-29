@@ -16,7 +16,7 @@ class App extends ConsumerWidget {
     var themeMode = ref.watch(themeProvider).themeMode;
 
     return MaterialApp(
-      title: 'Proof App',
+      title: 'Heibill App',
       theme: kTheme,
       darkTheme: kDarkTheme,
       themeMode: themeMode,
