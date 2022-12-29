@@ -9,4 +9,6 @@ class Palette {
   static const azure = Color(0xffeafbf6);
   static const floralWhite = Color(0xfffffcf4);
   static const goldFusion = Color(0xff8b703d);
+  static const gunmetal = Color(0xff223040);
+  static const raisinBlack = Color(0xff1d242f);
 }
