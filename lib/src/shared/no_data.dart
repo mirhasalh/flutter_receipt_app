@@ -6,13 +6,7 @@ class NoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        'No data',
-        style: Theme.of(context)
-            .textTheme
-            .subtitle2!
-            .copyWith(color: Colors.black54),
-      ),
+      child: Text('No data', style: Theme.of(context).textTheme.subtitle2!),
     );
   }
 }
