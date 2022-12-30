@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_receipt_app/src/provider/theme_provider.dart';
-import 'package:flutter_receipt_app/src/utils/theme_settings_utils.dart';
+import 'package:flutter_receipt_app/src/utils/theme_utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ThemeSettingsPage extends ConsumerWidget {
