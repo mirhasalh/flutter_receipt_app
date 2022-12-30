@@ -69,10 +69,38 @@
     },
     "english": "English",
     "@english": {
-      "description": "A text for english list tile"
+      "description": "A text for english list tile title"
     },
     "indonesian": "Indonesian",
     "@indonesian": {
-      "description": "A text for english list tile"
+      "description": "A text for english list tile title"
+    },
+    "personalization": "Personalization",
+    "@personalization": {
+      "description": "A text for personalization list tile title"
+    },
+    "currency": "Currency",
+    "@currency": {
+      "description": "A text for currency list tile title"
+    },
+    "themeMode": "Theme mode",
+    "@themeMode": {
+      "description": "A text for theme mode list tile title"
+    },
+    "personalizationSubtitle": "Manage your store informations",
+    "@personalizationSubtitle": {
+      "description": "A text for personalization list tile subtitle"
+    },
+    "currencySubtitle": "Set currency symbol",
+    "@currencySubtitle": {
+      "description": "A text for currency list tile subtitle"
+    },
+    "themeModeSubtitle": "Set theme mode",
+    "@themeModeSubtitle": {
+      "description": "A text for theme mode list tile subtitle"
+    },
+    "themeSettings": "Theme settings",
+    "@themeSettings": {
+      "description": "A title for theme settings page"
     }
 }

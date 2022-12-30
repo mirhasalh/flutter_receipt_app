@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_receipt_app/src/common.dart';
 
 class InfoPage extends StatelessWidget {
   static const routeName = '/info';
@@ -9,7 +9,7 @@ class InfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Personalization'),
+        title: Text(AppLocalizations.of(context)!.personalization),
       ),
     );
   }

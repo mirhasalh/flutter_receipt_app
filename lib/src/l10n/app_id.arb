@@ -17,5 +17,12 @@
     "typeSupplierName": "Ketik nama pemasok",
     "wholesalePriceCaption": "Harga grosir adalah harga yang dikenakan untuk suatu produk yang dijual dalam jumlah besar ke kelompok perdagangan atau distributor besar sebagai lawan dari apa yang dibebankan kepada konsumen",
     "english": "Inggris",
-    "indonesian": "Indonesia"
+    "indonesian": "Indonesia",
+    "personalization": "Personalisasi",
+    "currency": "Mata uang",
+    "themeMode": "Modus tema",
+    "personalizationSubtitle": "Kelola informasi toko Anda",
+    "currencySubtitle": "Atur simbol mata uang",
+    "themeModeSubtitle": "Atur mode tema",
+    "themeSettings": "Pengaturan tema"
 }

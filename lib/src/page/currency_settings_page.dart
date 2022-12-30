@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/utils/locale_utils.dart';
 import 'package:flutter_receipt_app/src/utils/prefs_utils.dart';
 
@@ -27,7 +27,7 @@ class _CurrencySettingsPageState extends State<CurrencySettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Currency settings'),
+        title: Text(AppLocalizations.of(context)!.currency),
       ),
       body: ListView.separated(
         itemBuilder: (context, index) {

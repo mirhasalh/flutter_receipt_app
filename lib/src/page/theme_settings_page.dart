@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/provider/theme_provider.dart';
 import 'package:flutter_receipt_app/src/utils/theme_utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,7 +14,7 @@ class ThemeSettingsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Theme settings'),
+        title: Text(AppLocalizations.of(context)!.themeSettings),
       ),
       body: ListView.separated(
         itemBuilder: (context, index) {

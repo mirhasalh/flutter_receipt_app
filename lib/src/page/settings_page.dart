@@ -41,13 +41,13 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
   String _getTitle(Settings settings) {
     switch (settings) {
       case Settings.personalization:
-        return 'Personalization';
+        return AppLocalizations.of(context)!.personalization;
       case Settings.language:
         return AppLocalizations.of(context)!.languages;
       case Settings.currency:
-        return 'Currency';
+        return AppLocalizations.of(context)!.currency;
       case Settings.theme:
-        return 'Theme mode';
+        return AppLocalizations.of(context)!.themeMode;
       default:
         return 'n/a';
     }
@@ -88,13 +88,13 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
   String _getSubtitle(Settings settings) {
     switch (settings) {
       case Settings.personalization:
-        return 'Manage your store informations';
+        return AppLocalizations.of(context)!.personalizationSubtitle;
       case Settings.language:
         return AppLocalizations.of(context)!.languageSubtitle;
       case Settings.currency:
-        return 'Set currency symbol';
+        return AppLocalizations.of(context)!.currencySubtitle;
       case Settings.theme:
-        return 'Set theme mode';
+        return AppLocalizations.of(context)!.themeModeSubtitle;
       default:
         return 'n/a';
     }
