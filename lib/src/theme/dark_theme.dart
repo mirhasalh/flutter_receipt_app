@@ -26,5 +26,4 @@ final kDarkTheme = ThemeData.dark(useMaterial3: false).copyWith(
     TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
   }),
   scaffoldBackgroundColor: Palette.charlestonGreen,
-  
 );

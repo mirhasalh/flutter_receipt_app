@@ -1,19 +1,21 @@
 import 'package:flutter_receipt_app/src/common.dart';
 import 'package:flutter_receipt_app/src/page/pages.dart';
+import 'package:flutter_receipt_app/src/provider/theme_provider.dart';
 import 'package:flutter_receipt_app/src/utils/prefs_utils.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum Settings { personalization, language, currency, theme }
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerStatefulWidget {
   static const routeName = '/settings';
 
   const SettingsPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  SettingsPageState createState() => SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class SettingsPageState extends ConsumerState<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,20 +62,26 @@ class _SettingsPageState extends State<SettingsPage> {
       case Settings.personalization:
         return const Icon(Icons.storefront_outlined, color: Colors.teal);
       case Settings.theme:
-        return _getThemeIcon(MediaQuery.of(context).platformBrightness);
+        final theme = ref.watch(themeProvider).themeMode;
+        return _getThemeIcon(theme);
       default:
         return const Icon(Icons.close, color: Colors.teal);
     }
   }
 
-  Icon _getThemeIcon(Brightness brightness) {
-    switch (brightness) {
-      case Brightness.light:
+  Icon _getThemeIcon(ThemeMode theme) {
+    switch (theme) {
+      case ThemeMode.light:
         return const Icon(Icons.light_mode_outlined, color: Colors.teal);
-      case Brightness.dark:
+      case ThemeMode.dark:
         return const Icon(Icons.dark_mode_outlined, color: Colors.teal);
       default:
-        return const Icon(Icons.light_mode_outlined, color: Colors.teal);
+        final brightness = MediaQuery.of(context).platformBrightness;
+        if (brightness == Brightness.dark) {
+          return const Icon(Icons.light_mode_outlined, color: Colors.teal);
+        } else {
+          return const Icon(Icons.light_mode_outlined, color: Colors.teal);
+        }
     }
   }
 
